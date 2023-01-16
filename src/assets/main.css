@@ -1,0 +1,26 @@
+@import './base.css';
+@import './tags.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#sumile-app {
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+.common-layout {
+  height: 100%;
+}
+
+.el-divider--horizontal {
+  margin: 12px 0;
+}
+
+.sumile-box-card {
+  border: none;
+  border-radius: var(--sumile-card-border-radius);
+}

@@ -1,0 +1,26 @@
+.sumile-tags .sumile-tags-tabs .el-tabs__header{
+  border-bottom: none;
+}
+.sumile-tags .sumile-tags-tabs .el-tabs__nav {
+  border: none;
+}
+.sumile-tags .sumile-tags-tabs .el-tabs__item {
+  height: 28px;
+  line-height: 28px;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: normal;
+  color: #ccc;
+}
+.sumile-tags .sumile-tags-tabs .el-tabs__item {
+  background: var(--el-color-primary);
+  color: #fff;
+}
+
+.sumile-tags-tabs .el-tabs__item +  .el-tabs__item {
+  margin-left: 10px;
+}
+/* .sumile-tags .sumile-tags-tabs .el-tabs__item .is-icon-close:hover{
+  background-color: transparent;
+} */
