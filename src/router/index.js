@@ -53,8 +53,12 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "404" */'../views/pages/404.vue'),
       meta: {
         isAuth: false,
-        isTab: false,
+        isTab: false
       }
+    },
+    {
+      path: '/:pathMatch(.*)',
+      redirect: '/404'
     }
   ]
 })

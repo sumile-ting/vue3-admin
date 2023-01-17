@@ -6,7 +6,7 @@ import { get as $get } from '@/api/http'
 export const useMenusStore = defineStore('menus', () => {
   let menus = reactive(getStore({ name: 'menus' }) || [])
   const activeMenuId = ref(getStore({ name: 'active_menu_id' }) || '')
-  const isMenuCollapse = ref(getStore({ name: 'menu_collapsed' }) || false)
+  const isMenuCollapse = ref(false)
   /**
    * 获取系统菜单
    * @returns
@@ -51,7 +51,6 @@ export const useMenusStore = defineStore('menus', () => {
    */
   function setMenuCollapse (collapse) {
     isMenuCollapse.value = collapse
-    setStore({ name: 'menu_collapsed', content: collapse })
   }
 
   return {

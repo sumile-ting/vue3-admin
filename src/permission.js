@@ -20,20 +20,22 @@ router.beforeEach(async (to, from, next) => {
       if (!menus.length && to.path === '/index') {
         const result = await getMenus()
         if (result.length) {
+          // addRoutes(to, menus) 
           next()
         } else {
           next('/404')
         }
       } else {
-        const { addTag } = useTagsStore()
         const meta = to.meta || {}
-        meta.order = meta.order || 0
-        addTag({
-          value: to.query.src || to.fullPath,
-          label: meta.title || to.name,
-          meta
-        })
-
+        if (meta.isTab !== false) {
+          meta.order = meta.order || 0
+          const { addTag } = useTagsStore()
+          addTag({
+            value: to.query.src || to.fullPath,
+            label: meta.title || to.name,
+            meta
+          })
+        }
         next()
       }
     }

@@ -3,8 +3,8 @@
   <el-header class="sumile-top">
     <div class="sumile-header-left">
       <img src="@/assets/logo.svg" />
-      <span>XXX管理系统</span>
-      <el-icon><Expand /></el-icon>
+      <span v-show="!isMenuCollapse">XXX管理系统</span>
+      <el-icon @click="handleCollapse"><Expand v-if="isMenuCollapse"/><Fold v-else /></el-icon>
       <el-divider direction="vertical" class="sumile-top-divider"/>
     </div>
     <div class="sumile-header-center">
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance, computed } from 'vue'
+import { ref, getCurrentInstance, computed, toRefs } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useMenusStore } from '@/stores/menus'
 import { useTagsStore } from '@/stores/tags'
@@ -54,11 +54,12 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
 const { proxy } = getCurrentInstance();
-const { menus, activeMenuId, setActiveMenuId, setMenus } = useMenusStore()
+const { menus, activeMenuId, setActiveMenuId, setMenus, setMenuCollapse } = useMenusStore()
+const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore( )
 
 const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
+  setActiveMenuId(key)
 }
 /**
  * 点击用户名后的下拉菜单
@@ -83,6 +84,13 @@ function logout () {
     setTags([])
     router.push('/login')
   })
+}
+
+/**
+ * 点击展开/收缩
+ */
+function handleCollapse () {
+  setMenuCollapse(!isMenuCollapse.value)
 }
 </script>
 
@@ -118,6 +126,9 @@ function logout () {
 }
 .sumile-header-left span{
   margin-right: 15px;
+}
+.sumile-header-left .el-icon {
+  cursor: pointer;
 }
 .sumile-top-menu .el-menu-item, .sumile-top-menu .el-menu-item.is-active{
   line-height: var(--sumile-header-height);

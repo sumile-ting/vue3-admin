@@ -3,32 +3,34 @@
   <el-aside class="sumile-aside">
     <div class="aside-menu">
       <el-menu
-        default-active="2"
+        :default-active="activeMenu"
         class="sumile-aside-menus"
         :collapse="isMenuCollapse"
+        menu-trigger="click"
+        unique-opened
+        router
       >
-        <el-menu-item index="item.path" v-for="item in menus" :key="item.id">
-          <el-icon><icon-menu /></el-icon>
-          <template #title>{{item.name}}</template>
-        </el-menu-item>
+        <aside-menu-item :menus="menus"></aside-menu-item>
       </el-menu>
     </div>
   </el-aside>
 </template>
 
 <script setup>
-import {computed, reactive} from 'vue'
+import {computed, reactive, toRefs} from 'vue'
 import {useMenusStore} from '@/stores/menus.js'
 import {useRoute} from 'vue-router'
-import {
-  Menu as IconMenu,
-} from '@element-plus/icons-vue'
+import AsideMenuItem from './AsideMenuItem.vue';
+
 const route = useRoute()
+
+const {isMenuCollapse} = toRefs(useMenusStore())
 const menus = computed(() => {
   const {activeMenuId, menus} = useMenusStore()
   let menu = menus.find(menu => activeMenuId === menu.id)
   return menu && menu.children && menu.children.length ? menu.children : [];
 })
+
 const activeMenu = computed(() => {
   return route.path
 })
@@ -46,4 +48,9 @@ const activeMenu = computed(() => {
   border-radius: var(--sumile-card-border-radius);
   box-shadow: 0px 8px 8px 0px rgb(69 90 199 / 7%);
 }
+.aside-menu .el-menu {
+  border-right: none;
+}
+
+
 </style>

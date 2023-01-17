@@ -22,6 +22,12 @@ npm install
 npm run dev
 ```
 
+###  Development with Mock Datas
+
+```sh
+npm run dev:mock
+```
+
 ### Compile and Minify for Production
 
 ```sh

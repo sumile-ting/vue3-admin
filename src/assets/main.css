@@ -24,3 +24,15 @@ html, body {
   border: none;
   border-radius: var(--sumile-card-border-radius);
 }
+
+.sumile-aside .el-menu--collapse .sumile-aside-menu-items .el-sub-menu .el-sub-menu__icon-arrow {
+  display: none;
+}
+.sumile-aside .el-menu--collapse .sumile-aside-menu-items .el-sub-menu>.el-sub-menu__title>span {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  display: inline-block;
+}
+

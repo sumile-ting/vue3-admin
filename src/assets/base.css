@@ -40,11 +40,16 @@
 }
 
 /* 项目用到的变量  */
-:root {
+#sumile-app {
   --sumile-header-height: 48px;
   --sumile-aside-width: 208px;
   --sumile-card-border-radius: 10px;
 }
+
+#sumile-app .sumile--collapse {
+  --sumile-aside-width: auto;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
