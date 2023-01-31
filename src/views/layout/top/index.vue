@@ -3,7 +3,7 @@
   <el-header class="sumile-top">
     <div class="sumile-header-left">
       <img src="@/assets/logo.svg" />
-      <span v-show="!isMenuCollapse">XXX管理系统</span>
+      <Transition><span v-show="!isMenuCollapse">XXX管理系统</span></Transition>
       <el-icon @click="handleCollapse"><Expand v-if="isMenuCollapse"/><Fold v-else /></el-icon>
       <el-divider direction="vertical" class="sumile-top-divider"/>
     </div>
