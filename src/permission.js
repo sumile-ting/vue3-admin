@@ -6,7 +6,7 @@ import router from './router'
 import { getStore } from '@/util/store'
 import { useTagsStore } from '@/stores/tags'
 import { useMenusStore } from '@/stores/menus'
-
+import {generatorRouterTree} from './router'
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
   const token = getStore({ name: 'access_token' })
@@ -17,10 +17,10 @@ router.beforeEach(async (to, from, next) => {
       })
     } else {
       const { menus, getMenus } = useMenusStore()
-      if (!menus.length && to.path === '/index') {
+      if ((!menus.length) && to.path === '/index') {
         const result = await getMenus()
         if (result.length) {
-          // addRoutes(to, menus) 
+          generatorRouterTree(menus, true)
           next()
         } else {
           next('/404')

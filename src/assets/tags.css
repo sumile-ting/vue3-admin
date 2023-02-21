@@ -12,8 +12,9 @@
   font-size: 13px;
   font-weight: normal;
   color: #ccc;
+  border-left: none;
 }
-.sumile-tags .sumile-tags-tabs .el-tabs__item {
+.sumile-tags .sumile-tags-tabs .el-tabs__item.is-active {
   background: var(--el-color-primary);
   color: #fff;
 }

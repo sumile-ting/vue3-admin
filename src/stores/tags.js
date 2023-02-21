@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { setStore, getStore } from '@/util/store'
 
 export const useTagsStore = defineStore('tags', () => {
-  let tags = reactive(getStore({ name: 'tags' }) || [])
+  let tags = reactive(getStore({ name: 'tag_list' }) || [])
 
   const diff = function (tag1, tag2) {
     return tag1.value === tag2.value

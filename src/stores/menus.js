@@ -1,10 +1,10 @@
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { setStore, getStore } from '@/util/store'
 import { get as $get } from '@/api/http'
 
 export const useMenusStore = defineStore('menus', () => {
-  let menus = reactive(getStore({ name: 'menus' }) || [])
+  const menus = ref(getStore({ name: 'menus' }) || [])
   const activeMenuId = ref(getStore({ name: 'active_menu_id' }) || '')
   const isMenuCollapse = ref(false)
   /**
@@ -18,7 +18,7 @@ export const useMenusStore = defineStore('menus', () => {
           topMenuId: '1610517983698395138'
         }).then(({ data }) => {
           const result = data.data
-          Object.assign(menus, result)
+          menus.value = result
           setStore({ name: 'menus', content: result })
           if (result.length) {
             setActiveMenuId(result[0].id)
@@ -33,8 +33,8 @@ export const useMenusStore = defineStore('menus', () => {
   }
 
   function setMenus (info) {
-    menus = info
-    setStore({ name: 'menus', content: menus })
+    menus.value = info
+    setStore({ name: 'menus', content: info })
   }
 
   /**
