@@ -2,18 +2,18 @@
 <template>
   <div class="sumile-tags">
     <el-tabs
-      v-model="route.path"
+      v-model="activeTag"
       type="card"
       class="sumile-tags-tabs"
       @tab-remove="handleRemove"
       @tab-click="handleClick"
     >
       <el-tab-pane
-        v-for="item in tags"
+        v-for="item in tags.arr"
         :key="item.value"
         :label="item.label"
         :name="item.value"
-        :closable="tags.length !== 1"
+        :closable="tags.arr.length !== 1"
       >
         {{ item.label }}
       </el-tab-pane>
@@ -22,20 +22,38 @@
 </template>
 
 <script setup>
+import {ref, watch } from 'vue'
 import { useTagsStore } from "@/stores/tags.js";
 import {useRouter, useRoute} from 'vue-router'
 const { tags, setTags } = useTagsStore();
 const router = useRouter()
 const route = useRoute()
+const activeTag = ref(route.path)
+
+/**
+ * 监听路由，设置当前tag
+ */
+watch(() => route.path, (path) => {
+  activeTag.value = path
+})
+
 /**
  * 移除tag
  * @param {*} tabName 
  */
 const handleRemove = function(tabName) {
-  const index = tags.findIndex(item => item.label === tabName || item.meta.title === tabName)
+  const index = tags.arr.findIndex(item => item.value === tabName)
   if(index !== -1) {
-    tags.splice(index, 1)
-    setTags(tags)
+    tags.arr.splice(index, 1)
+    setTags(tags.arr)
+    // 设置当前tag为最后一次点击的tag
+    if(tabName === route.path) {
+      // 如果关闭本标签，则打开最近一次打开的标签
+      const tag = tags.arr.reduce((preVal, curVal) => {
+              return preVal.meta.order < curVal.meta.order ? curVal : preVal;
+            }, {meta: {order: -1}})
+      router.push(tag.value)
+    }
   }
 }
 /**

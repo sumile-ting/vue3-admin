@@ -2,11 +2,10 @@
  * 全站权限配置
  *
  */
-import router from './router'
+import router, { generatorRouterTree } from './router'
 import { getStore } from '@/util/store'
 import { useTagsStore } from '@/stores/tags'
 import { useMenusStore } from '@/stores/menus'
-import {generatorRouterTree} from './router'
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
   const token = getStore({ name: 'access_token' })
@@ -17,27 +16,25 @@ router.beforeEach(async (to, from, next) => {
       })
     } else {
       const { menus, getMenus } = useMenusStore()
-      if ((!menus.length) && to.path === '/index') {
+      if (!menus.length) {
         const result = await getMenus()
         if (result.length) {
           generatorRouterTree(menus, true)
-          next()
         } else {
           next('/404')
         }
-      } else {
-        const meta = to.meta || {}
-        if (meta.isTab !== false) {
-          meta.order = meta.order || 0
-          const { addTag } = useTagsStore()
-          addTag({
-            value: to.query.src || to.fullPath,
-            label: meta.title || to.name,
-            meta
-          })
-        }
-        next()
       }
+      const meta = to.meta || {}
+      if (meta.isTab !== false) {
+        meta.order = meta.order || 0
+        const { addTag } = useTagsStore()
+        addTag({
+          value: to.query.src || to.fullPath,
+          label: meta.title || to.name,
+          meta
+        })
+      }
+      next()
     }
   } else {
     // 判断是否需要认证，没有登录访问去登录页

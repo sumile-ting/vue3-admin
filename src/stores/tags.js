@@ -1,9 +1,11 @@
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { setStore, getStore } from '@/util/store'
 
 export const useTagsStore = defineStore('tags', () => {
-  let tags = reactive(getStore({ name: 'tag_list' }) || [])
+  const tags = reactive({
+    arr: ref(getStore({ name: 'tag_list' }) || [])
+  })
 
   const diff = function (tag1, tag2) {
     return tag1.value === tag2.value
@@ -14,8 +16,8 @@ export const useTagsStore = defineStore('tags', () => {
    * @param {*} tags
    */
   function setTags (tagList) {
-    tags = tagList
-    setStore({ name: 'tag_list', content: tags })
+    tags.arr = tagList
+    setStore({ name: 'tag_list', content: tags.arr })
   }
 
   /**
@@ -23,15 +25,15 @@ export const useTagsStore = defineStore('tags', () => {
    * @param {*} tag
    */
   function addTag (tag) {
-    const tagInList = tags.find((ele) => diff(ele, tag))
-    const order = Math.max(...tags.map((item) => item.meta.order || 0), 0) + 1
+    const tagInList = tags.arr.find((ele) => diff(ele, tag))
+    const order = Math.max(...tags.arr.map((item) => item.meta.order || 0), 0) + 1
     if (tagInList) {
       tagInList.meta.order = order
     } else {
       tag.meta.order = order
-      tags.push(tag)
+      tags.arr.push(tag)
     }
-    setTags(tags)
+    setTags(tags.arr)
   }
 
   return { tags, setTags, addTag }
