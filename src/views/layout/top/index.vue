@@ -9,7 +9,7 @@
     </div>
     <div class="sumile-header-center">
       <el-menu
-        :default-active="activeMenuId"
+        :default-active="activeId"
         class="sumile-top-menu"
         mode="horizontal"
         :ellipsis="false"
@@ -46,11 +46,12 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance, computed, toRefs } from 'vue'
+import { ref, getCurrentInstance, computed, toRefs, watch } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useMenusStore } from '@/stores/menus'
 import { useTagsStore } from '@/stores/tags'
 import {useRouter} from 'vue-router'
+import {getLeafPath} from '@/util/util'
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
 const { proxy } = getCurrentInstance();
@@ -58,8 +59,27 @@ const { menus, activeMenuId, setActiveMenuId, setMenus, setMenuCollapse } = useM
 const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore( )
 
+/**
+ * 切换tags，更新顶部激活状态
+ */
+const activeId = computed(() => {
+  const { activeMenuId } = useMenusStore()
+  return activeMenuId
+})
+/**
+ * 顶部菜单点击事件
+ * @param {*} key 
+ * @param {*} keyPath 
+ */
 const handleSelect = (key, keyPath) => {
   setActiveMenuId(key)
+  const subMenus = menus.find(item => item.id === key)
+  if(!subMenus || !subMenus.children.length) {
+    router.push('/404')
+  }
+  const menu = subMenus.children
+  const path = getLeafPath(menu)
+  router.push(path)
 }
 /**
  * 点击用户名后的下拉菜单
@@ -123,6 +143,7 @@ function handleCollapse () {
 }
 .sumile-top-menu {
   display: inline-flex;
+  padding-right: 48px;
 }
 .sumile-header-left span{
   margin-right: 15px;
@@ -130,13 +151,17 @@ function handleCollapse () {
 .sumile-header-left .el-icon {
   cursor: pointer;
 }
-.sumile-top-menu .el-menu-item, .sumile-top-menu .el-menu-item.is-active{
+.sumile-top-menu .el-menu-item {
   line-height: var(--sumile-header-height);
   height: var(--sumile-header-height);
-  border-bottom: none;
+  
 }
+.sumile-top-menu .el-menu-item.is-active {
+  border-bottom-color: #8FC4FF;
+}
+
 .sumile-top-menu .el-menu-item:not(.is-disabled).is-active {
-  background-color: var(--el-menu-hover-bg-color);
+   background: linear-gradient(180deg, rgba(94,151,249,0) 0%, #5E97F9 100%);;
 }
 .el-dropdown-link {
   color: #fff;

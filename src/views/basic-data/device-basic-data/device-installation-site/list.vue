@@ -1,6 +1,6 @@
-
+<!--  -->
 <template>
-  <div><p>设备管理=》设备台账</p></div>
+  <div>设备安装位置</div>
 </template>
 
 <script setup>

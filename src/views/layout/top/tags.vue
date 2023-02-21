@@ -22,10 +22,12 @@
 </template>
 
 <script setup>
-import {ref, watch } from 'vue'
+import {ref, watch, computed } from 'vue'
 import { useTagsStore } from "@/stores/tags.js";
+import {useMenusStore} from '@/stores/menus'
 import {useRouter, useRoute} from 'vue-router'
 const { tags, setTags } = useTagsStore();
+const {activeMenuId, setActiveMenuId} = useMenusStore()
 const router = useRouter()
 const route = useRoute()
 const activeTag = ref(route.path)
@@ -61,7 +63,14 @@ const handleRemove = function(tabName) {
  * @param {*} tab 
  */
 const handleClick = function (tab) {
-  router.push(tab.props.name)
+  const path = tab.props.name
+  const tag = tags.arr.find(item => item.value === path)
+  const { activeMenuId } = useMenusStore()
+  // tag的menuId和顶部菜单激活状态的menuId不一致，更新顶部菜单激活状态
+  if(tag.meta.menuId && tag.meta.menuId !== activeMenuId) {
+    setActiveMenuId(tag.meta.menuId)
+  }
+  router.push(path)
 }
 </script>
 

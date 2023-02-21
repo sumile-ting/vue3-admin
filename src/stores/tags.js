@@ -30,6 +30,7 @@ export const useTagsStore = defineStore('tags', () => {
     if (tagInList) {
       tagInList.meta.order = order
     } else {
+      tag.meta.menuId = getStore({ name: 'active_menu_id' })
       tag.meta.order = order
       tags.arr.push(tag)
     }
