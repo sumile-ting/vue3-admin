@@ -65,6 +65,12 @@ const router = createRouter({
   ]
 })
 
+/**
+ * 递归的构造动态路由
+ * @param {*} menus 
+ * @param {*} parent 
+ * @returns 
+ */
 export function generatorRouterTree (menus, parent) {
   if (!menus || menus.length === 0) return
   const routers = []

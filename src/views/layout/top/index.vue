@@ -19,7 +19,7 @@
         @select="handleSelect"
       >
       <template v-for="item in menus"  :key="item.id">
-        <el-menu-item :index="item.id">{{item.name}}</el-menu-item>
+        <el-menu-item :index="item.id"><el-icon><HomeFilled /></el-icon>{{item.name}}</el-menu-item>
 
       </template>
       </el-menu>
@@ -52,6 +52,10 @@ import { useMenusStore } from '@/stores/menus'
 import { useTagsStore } from '@/stores/tags'
 import {useRouter} from 'vue-router'
 import {getLeafPath} from '@/util/util'
+import {
+  HomeFilled
+} from '@element-plus/icons-vue'
+
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
 const { proxy } = getCurrentInstance();
