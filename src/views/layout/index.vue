@@ -34,8 +34,5 @@ const {isMenuCollapse} = toRefs(useMenusStore())
 }
 .sumile-view {
   flex: 1;
-  background: #fff;
-  border-radius: var(--sumile-card-border-radius);
-  box-shadow: 0px 8px 8px 0px rgb(69 90 199 / 7%);
 }
 </style>

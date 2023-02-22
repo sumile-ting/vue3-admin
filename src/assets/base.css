@@ -44,10 +44,25 @@
   --sumile-header-height: 48px;
   --sumile-aside-width: 208px;
   --sumile-card-border-radius: 10px;
+  --sumile-aside-active-menu-background: #E0EBFC;
+
 }
 
 #sumile-app .sumile--collapse {
   --sumile-aside-width: auto;
+}
+
+.sumile-aside .sumile-aside-menu-items {
+  --el-menu-item-height: 46px;
+  --el-menu-sub-item-height: 46px;
+}
+
+#sumile-app .el-table {
+  --el-table-header-bg-color: rgba(0,0,0,0.04);
+}
+
+#sumile-app .el-table thead {
+  --el-table-header-text-color: rgba(0,0,0,0.85);
 }
 
 

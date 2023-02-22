@@ -15,7 +15,6 @@
         :name="item.value"
         :closable="tags.arr.length !== 1"
       >
-        {{ item.label }}
       </el-tab-pane>
     </el-tabs>
   </div>

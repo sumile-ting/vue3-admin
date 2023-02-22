@@ -25,6 +25,7 @@ html, body {
   border-radius: var(--sumile-card-border-radius);
 }
 
+/** 侧边菜单 start **/
 .sumile-aside .el-menu--collapse .sumile-aside-menu-items .el-sub-menu .el-sub-menu__icon-arrow {
   display: none;
 }
@@ -35,5 +36,75 @@ html, body {
   visibility: hidden;
   display: inline-block;
 }
+.sumile-aside-menu-items .el-sub-menu.is-active .el-sub-menu__title {
+  color: var(--el-color-primary);
+}
+.sumile-aside-menu-items .el-sub-menu.is-active .el-menu {
+  background: var(--sumile-aside-active-menu-background);
+}
+.sumile-aside-menu-items .el-sub-menu.is-active .el-menu > div::before {
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--el-color-primary);
+  position: absolute;
+}
+/** 侧边菜单 end **/
 
+/** 右边内容区域 start **/
+.sumile-basic-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.sumile-basic-container .sumile-basic-container-search {
+  background: #FFFFFF;
+  box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
+  padding: 18px 5px 0 5px;
+  border-radius: var(--sumile-card-border-radius);
+  position: relative;
+}
+
+.sumile-basic-container .sumile-basic-container-table {
+  background: #FFFFFF;
+  box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
+  padding: 15px;
+  border-radius: var(--sumile-card-border-radius);
+  margin: 18px 0;
+  margin: 18px 0 0 0;
+  flex: 1;
+}
+.sumile-basic-container .sumile-basic-container-table-operator {
+  margin-bottom: 12px;
+}
+
+.sumile-basic-container .sumile-basic-container-search .el-form-item {
+  width: 100%;
+  margin-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sumile-basic-container .sumile-search-expand {
+  position: absolute;
+  width: 100%;
+  bottom: -10px;
+  left: 0;
+}
+.sumile-basic-container .sumile-search-expand .el-tooltip__trigger{
+  width: 60px;
+  height: 15px;
+  line-height: 15px;
+  left: calc(50% - 30px);
+  border-radius: 0 0 8px 8px;
+  text-align: center;
+  background: #fff;
+  font-size: 12px;
+  color: rgba(0,0,0,.45);
+  cursor: pointer;
+  -webkit-box-shadow: 0 8px 8px 0 rgb(69 90 199 / 7%);
+  box-shadow: 0 8px 8px 0 rgb(69 90 199 / 7%);
+}
+/** 右边内容区域 end **/

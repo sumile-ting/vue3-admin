@@ -8,6 +8,10 @@
       <el-divider direction="vertical" class="sumile-top-divider"/>
     </div>
     <div class="sumile-header-center">
+      <a class="header-home-menu" @click="goHomePage" v-if="config.showIndexPage">
+        <el-icon><Menu /></el-icon>
+        <span>首页</span>
+      </a>
       <el-menu
         :default-active="activeId"
         class="sumile-top-menu"
@@ -53,16 +57,16 @@ import { useTagsStore } from '@/stores/tags'
 import {useRouter} from 'vue-router'
 import {getLeafPath} from '@/util/util'
 import {
-  HomeFilled
+  HomeFilled, Menu
 } from '@element-plus/icons-vue'
+import config from '@/config/index.js'
 
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
 const { proxy } = getCurrentInstance();
 const { menus, activeMenuId, setActiveMenuId, setMenus, setMenuCollapse } = useMenusStore()
 const {isMenuCollapse} = toRefs(useMenusStore())
-const { setTags } = useTagsStore( )
-
+const { setTags } = useTagsStore()
 /**
  * 切换tags，更新顶部激活状态
  */
@@ -115,6 +119,11 @@ function logout () {
  */
 function handleCollapse () {
   setMenuCollapse(!isMenuCollapse.value)
+}
+
+// 回到首页
+function goHomePage () {
+  router.push('/index')
 }
 </script>
 
@@ -173,5 +182,18 @@ function handleCollapse () {
 .sumile-top-divider {
   border-left-color: rgba(255, 255, 255, 0.2);
   height: 29px;
+  margin: 0 15px;
+}
+.header-home-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.header-home-menu span {
+  margin-left: 5px;
 }
 </style>

@@ -40,6 +40,7 @@ const activeMenu = computed(() => {
 .sumile-aside {
   width: var(--sumile-aside-width);
   padding: 15px;
+  box-sizing: content-box;
 }
 .aside-menu {
   height: 100%;
@@ -47,6 +48,7 @@ const activeMenu = computed(() => {
   background: #fff;
   border-radius: var(--sumile-card-border-radius);
   box-shadow: 0px 8px 8px 0px rgb(69 90 199 / 7%);
+
 }
 .aside-menu .el-menu {
   border-right: none;
