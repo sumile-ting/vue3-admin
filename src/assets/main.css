@@ -4,12 +4,29 @@
 html, body {
   height: 100%;
   margin: 0;
+  background: #f5f5f5;
+}
+
+/** 暗黑模式设置 **/
+html.dark {
+  background: var(--el-bg-color-overlay);
+  color: #fff;
+}
+
+.dark .sumile-top {
+  --el-menu-bg-color: var(--el-bg-color-overlay);
+  --sumile-top-background: var(--el-bg-color-overlay);
+}
+
+.sumile-top {
+  --el-menu-bg-color: var(--sumile-top-background);
+  --el-menu-active-color: var(--el-color-white);
+  --el-menu-text-color: var(--el-color-white);
 }
 
 #sumile-app {
   height: 100%;
   margin: 0;
-  background-color: #f5f5f5;
 }
 
 .common-layout {
@@ -39,10 +56,10 @@ html, body {
 .sumile-aside-menu-items .el-sub-menu.is-active .el-sub-menu__title {
   color: var(--el-color-primary);
 }
-.sumile-aside-menu-items .el-sub-menu.is-active .el-menu {
+.sumile-aside-menu-items .sumile-aside-menu-items > li.is-active {
   background: var(--sumile-aside-active-menu-background);
 }
-.sumile-aside-menu-items .el-sub-menu.is-active .el-menu > div::before {
+.sumile-aside-menu-items .sumile-aside-menu-items > li.is-active::before {
   content: "";
   top: 0;
   left: 0;
@@ -60,7 +77,7 @@ html, body {
 }
 
 .sumile-basic-container .sumile-basic-container-search {
-  background: #FFFFFF;
+  background: var(--el-bg-color-overlay);
   box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
   padding: 18px 5px 0 5px;
   border-radius: var(--sumile-card-border-radius);
@@ -68,7 +85,7 @@ html, body {
 }
 
 .sumile-basic-container .sumile-basic-container-table {
-  background: #FFFFFF;
+  background: var(--el-bg-color-overlay);
   box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
   padding: 15px;
   border-radius: var(--sumile-card-border-radius);

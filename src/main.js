@@ -6,7 +6,11 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+
 import './assets/main.css'
+import 'uno.css'
+
 import * as request from '@/api/http'
 import '@/permission.js'
 

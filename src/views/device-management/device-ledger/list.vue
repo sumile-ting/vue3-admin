@@ -33,7 +33,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 
-import SearchPanel from '@/components/search-panel/index.vue'
+// import SearchPanel from '@/components/search-panel/index.vue'
 
 const searchOption = reactive({
   columns: [

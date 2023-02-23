@@ -26,6 +26,7 @@ const {isMenuCollapse} = toRefs(useMenusStore())
 <style scoped>
 .sumile-container {
   height: 100%;
+  background: var(--el-bg-color-overlay);
 }
 .sumile-main {
   padding: 15px 15px 15px 0;

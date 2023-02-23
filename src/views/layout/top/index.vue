@@ -3,7 +3,7 @@
   <el-header class="sumile-top">
     <div class="sumile-header-left">
       <img src="@/assets/logo.svg" />
-      <Transition><span v-show="!isMenuCollapse">XXX管理系统</span></Transition>
+      <Transition><span v-show="!isMenuCollapse">{{config.websiteTitle}}</span></Transition>
       <el-icon @click="handleCollapse"><Expand v-if="isMenuCollapse"/><Fold v-else /></el-icon>
       <el-divider direction="vertical" class="sumile-top-divider"/>
     </div>
@@ -17,16 +17,19 @@
         class="sumile-top-menu"
         mode="horizontal"
         :ellipsis="false"
-        text-color="#fff"
-        active-text-color="#fff"
-        background-color="#5682dc"
         @select="handleSelect"
       >
       <template v-for="item in menus"  :key="item.id">
         <el-menu-item :index="item.id"><el-icon><HomeFilled /></el-icon>{{item.name}}</el-menu-item>
 
       </template>
+
       </el-menu>
+      <a  @click="toggleDark()" class="w-30px inline-block" title="切换暗黑主题">
+        <button class="border-none w-full bg-transparent cursor-pointer c-white" style="height: 100%;">
+          <i inline-flex class="dark:i-ep-moon i-ep-sunny" />
+        </button>
+      </a>
     </div>
     <div class="sumile-header-right">
       <el-divider direction="vertical"  class="sumile-top-divider"/>
@@ -60,6 +63,7 @@ import {
   HomeFilled, Menu
 } from '@element-plus/icons-vue'
 import config from '@/config/index.js'
+import { useDark, useToggle } from '@vueuse/core'
 
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
@@ -67,6 +71,11 @@ const { proxy } = getCurrentInstance();
 const { menus, activeMenuId, setActiveMenuId, setMenus, setMenuCollapse } = useMenusStore()
 const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore()
+
+// 切换暗黑模式
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
 /**
  * 切换tags，更新顶部激活状态
  */
@@ -129,7 +138,7 @@ function goHomePage () {
 
 <style scoped>
 .sumile-top {
-  background: #5682dc;
+  background: var(--sumile-top-background);
   color: #fff;
   display: flex;
   height: var(--sumile-header-height);
@@ -157,6 +166,8 @@ function goHomePage () {
 .sumile-top-menu {
   display: inline-flex;
   padding-right: 48px;
+  box-sizing: border-box;
+  border-bottom: none;
 }
 .sumile-header-left span{
   margin-right: 15px;
