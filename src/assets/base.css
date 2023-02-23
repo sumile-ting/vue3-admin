@@ -1,12 +1,13 @@
 
 
 /* 项目用到的变量  */
-#sumile-app {
+:root {
   --sumile-header-height: 48px;
   --sumile-aside-width: 208px;
   --sumile-card-border-radius: 10px;
   --sumile-aside-active-menu-background: #E0EBFC;
   --sumile-top-background: #5682dc;
+  --sumile-backgournd-layout: #f5f5f5;
 
 }
 
