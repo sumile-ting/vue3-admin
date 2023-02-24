@@ -1,5 +1,6 @@
 @import './base.css';
 @import './tags.css';
+@import './element-plus-reset.css';
 
 html, body {
   height: 100%;

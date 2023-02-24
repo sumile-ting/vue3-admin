@@ -24,7 +24,7 @@
                     v-model="props.model[item.prop]"
                     v-bind="item.props"
                     type="date"
-                    style="width: 100%"
+                    style="width: 100%;display: flex;"
                     :placeholder="'请选择' + item.label">
                   </el-date-picker>
                 </template>

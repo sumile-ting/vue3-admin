@@ -25,9 +25,11 @@
       </template>
 
       </el-menu>
-      <a  @click="toggleDark()" class="w-30px inline-block" title="切换暗黑主题">
+      <a  @click="next()" class="w-30px inline-block" title="切换主题">
         <button class="border-none w-full bg-transparent cursor-pointer c-white" style="height: 100%;">
-          <i inline-flex class="dark:i-ep-moon i-ep-sunny" />
+          <i inline-flex class="dark:i-ep-moon" v-if="mode === 'dark'"/>
+          <i inline-flex class="i-ep-sunny" v-if="mode === 'auto'"/>
+          <i inline-flex class="i-ep-star" v-if="mode === 'red'"/>
         </button>
       </a>
     </div>
@@ -42,7 +44,7 @@
           <el-dropdown-menu>
             <el-dropdown-item :command="1">个人信息</el-dropdown-item>
             <el-divider />
-            <el-dropdown-item @click="logout" :command="2">
+            <el-dropdown-item :command="2">
               退出登录
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -60,10 +62,10 @@ import { useTagsStore } from '@/stores/tags'
 import {useRouter} from 'vue-router'
 import {getLeafPath} from '@/util/util'
 import {
-  HomeFilled, Menu
+  HomeFilled, Menu, Expand, Fold, ArrowDown
 } from '@element-plus/icons-vue'
 import config from '@/config/index.js'
-import { useDark, useToggle } from '@vueuse/core'
+import { useColorMode, useCycleList } from '@vueuse/core'
 
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
@@ -73,10 +75,15 @@ const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore()
 
 // 切换暗黑模式
-const isDark = useDark({
-  storageKey: 'system-color-theme'
+const mode = useColorMode({
+  storageKey: 'system-color-theme',
+  emitAuto: true,
+  modes: {
+    auto: 'auto',
+    red: 'red-theme',
+  },
 })
-const toggleDark = useToggle(isDark)
+const { next } = useCycleList(['dark', 'red', 'auto'], { initialValue: mode })
 
 /**
  * 切换tags，更新顶部激活状态
@@ -116,13 +123,20 @@ const handleCommand = (command) => {
  * 登出
  */
 function logout () {
-  proxy.$get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/logout`).then((res) => {
-    setUserInfo({})
-    setActiveMenuId('')
-    setMenus([])
-    setTags([])
-    router.push('/login')
+  proxy.$confirm('退出系统是否继续？', '提示', {
+    type: 'warning',
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+  }).then(() => {
+    proxy.$get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/logout`).then((res) => {
+      setUserInfo({})
+      setActiveMenuId('')
+      setMenus([])
+      setTags([])
+      router.push('/login')
+    })
   })
+
 }
 
 /**
@@ -183,11 +197,11 @@ function goHomePage () {
   
 }
 .sumile-top-menu .el-menu-item.is-active {
-  border-bottom-color: #8FC4FF;
+  border-bottom-color: var(--sumile-top-active-border-bottom-color);
 }
 
 .sumile-top-menu .el-menu-item:not(.is-disabled).is-active {
-   background: linear-gradient(180deg, rgba(94,151,249,0) 0%, #5E97F9 100%);;
+   background: var(--sumile-top-active-background);
 }
 .el-dropdown-link {
   color: #fff;

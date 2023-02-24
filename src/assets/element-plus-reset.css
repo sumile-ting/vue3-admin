@@ -1,0 +1,19 @@
+.el-overlay-message-box .el-message-box{
+  --el-messagebox-content-color :rgba(0,0,0,0.85);
+  --el-messagebox-content-font-size: 16px;
+}
+
+.el-overlay-message-box .el-message-box__header {
+  padding: var(--el-messagebox-padding-primary);
+  background: rgba(0,0,0,0.02);
+}
+.el-overlay-message-box .el-message-box__btns {
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.el-message-box .el-message-box__content {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: PingFangSC-Medium, PingFang SC, Noto Sans SC;
+  font-weight: 500;
+}

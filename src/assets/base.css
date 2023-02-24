@@ -1,14 +1,36 @@
 
 
 /* 项目用到的变量  */
-:root {
+body {
   --sumile-header-height: 48px;
   --sumile-aside-width: 208px;
   --sumile-card-border-radius: 10px;
   --sumile-aside-active-menu-background: #E0EBFC;
   --sumile-top-background: #5682dc;
+  --sumile-top-active-background: linear-gradient(180deg, rgba(94,151,249,0) 0%, #5E97F9 100%);
+  --sumile-top-active-border-bottom-color:#8FC4FF;
   --sumile-backgournd-layout: #f5f5f5;
+  --el-color-primary: #5e97f9;
+}
 
+.red-theme body{
+  --el-color-primary: #D24646;
+  --sumile-top-background: #BF2525;
+  --sumile-aside-active-menu-background: #f6e5e5;
+  --el-menu-hover-bg-color: #f6e5e5;
+  --sumile-top-active-background: linear-gradient(180deg,rgba(168,21,21,0),#ff7070);
+  --sumile-top-active-border-bottom-color:#FFA0A0;
+  --el-menu-active-color: #D24646;
+}
+
+html.dark body{
+  --el-color-primary: #A6ACC1;
+  --el-menu-bg-color: #000;
+  --sumile-aside-active-menu-background: rgba(255, 255, 255, .5);
+  --el-menu-hover-bg-color: rgba(255, 255, 255, .5);
+  --sumile-top-active-background: linear-gradient(180deg,rgba(168,21,21,0), rgba(255, 255, 255, .5));
+  --sumile-top-active-border-bottom-color:rgba(255, 255, 255, .5);
+  --el-menu-active-color: #A6ACC1;
 }
 
 #sumile-app .sumile--collapse {
@@ -26,12 +48,6 @@
 
 #sumile-app .el-table thead {
   --el-table-header-text-color: rgba(0,0,0,0.85);
-}
-
-
-html.dark {
-  --el-menu-bg-color: #000;
-  --el-menu-hover-bg-color: rgb(69, 104, 176);
 }
 
 *,
