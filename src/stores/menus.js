@@ -1,12 +1,13 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { setStore, getStore } from '@/util/store'
 import { get as $get } from '@/api/http'
+import { useStorage } from '@vueuse/core'
 
 export const useMenusStore = defineStore('menus', () => {
-  const menus = ref(getStore({ name: 'menus' }) || [])
-  const activeMenuId = ref(getStore({ name: 'active_menu_id' }) || '')
+  const menus = ref(useStorage('system-menus', []))
+  const activeMenuId = ref(useStorage('system-active_menu_id', ''))
   const isMenuCollapse = ref(false)
+
   /**
    * 获取系统菜单
    * @returns
@@ -19,7 +20,6 @@ export const useMenusStore = defineStore('menus', () => {
         }).then(({ data }) => {
           const result = data.data
           menus.value = result
-          setStore({ name: 'menus', content: result })
           if (result.length) {
             setActiveMenuId(result[0].id)
           }
@@ -34,7 +34,6 @@ export const useMenusStore = defineStore('menus', () => {
 
   function setMenus (info) {
     menus.value = info
-    setStore({ name: 'menus', content: info })
   }
 
   /**
@@ -43,7 +42,6 @@ export const useMenusStore = defineStore('menus', () => {
    */
   function setActiveMenuId (menuId) {
     activeMenuId.value = menuId
-    setStore({ name: 'active_menu_id', content: menuId })
   }
 
   /**

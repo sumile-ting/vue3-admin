@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
 import Login from '../views/login/Login.vue'
 import Layout from '../views/layout/index.vue'
-import { getStore } from '@/util/store'
 const modules = import.meta.glob('../**/**/*.vue')
 
 const router = createRouter({
@@ -124,6 +123,6 @@ export function generatorRouterTree (menus, parent) {
     }
   }
 }
-const menus = getStore({ name: 'menus' })
+const menus = JSON.parse(window.localStorage.getItem('system-menus') || '[]')
 generatorRouterTree(menus, true)
 export default router

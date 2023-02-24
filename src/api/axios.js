@@ -1,6 +1,5 @@
 import axios from 'axios'
 import router from '../router'
-import { getStore } from '@/util/store'
 import { ElMessage } from 'element-plus'
 function myAxios (axiosConfig, customOptions) {
   const service = axios.create({
@@ -14,8 +13,9 @@ function myAxios (axiosConfig, customOptions) {
       const meta = config.meta || {}
       const isToken = meta.isToken === false
       // 让每个请求携带token
-      if (getStore({ name: 'access_token' }) && !isToken) {
-        config.headers[`${import.meta.env.VITE_REQUEST_PREFIX}-Auth`] = 'bearer ' + getStore({ name: 'access_token' })
+      const accessToken = window.localStorage.getItem('system-access_token')
+      if (accessToken && !isToken) {
+        config.headers[`${import.meta.env.VITE_REQUEST_PREFIX}-Auth`] = 'bearer ' + accessToken
       }
       return config
     },

@@ -3,15 +3,16 @@
  *
  */
 import router, { generatorRouterTree } from './router'
-import { getStore } from '@/util/store'
 import { useTagsStore } from '@/stores/tags'
 import { useMenusStore } from '@/stores/menus'
+import { useUserStore } from '@/stores/user'
 import config from '@/config/index'
 import { getLeafPath } from '@/util/util'
 
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
-  const token = getStore({ name: 'access_token' })
+  const { accessToken } = useUserStore()
+  const token = accessToken
   if (token) {
     if (to.path === '/login') { // 如果登录成功访问登录页跳转到主页
       next({
@@ -19,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
       })
     } else {
       const { menus, getMenus } = useMenusStore()
-      if (!menus.length) {
+      if (!menus || !menus.length) {
         const result = await getMenus()
         if (result.length) {
           generatorRouterTree(result, true)

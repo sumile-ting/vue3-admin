@@ -1,10 +1,11 @@
 import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { setStore, getStore } from '@/util/store'
+import { useStorage } from '@vueuse/core'
+import { useMenusStore } from './menus'
 
 export const useTagsStore = defineStore('tags', () => {
   const tags = reactive({
-    arr: ref(getStore({ name: 'tag_list' }) || [])
+    arr: ref(useStorage('system-tag_list', []))
   })
 
   const diff = function (tag1, tag2) {
@@ -17,7 +18,6 @@ export const useTagsStore = defineStore('tags', () => {
    */
   function setTags (tagList) {
     tags.arr = tagList
-    setStore({ name: 'tag_list', content: tags.arr })
   }
 
   /**
@@ -30,7 +30,8 @@ export const useTagsStore = defineStore('tags', () => {
     if (tagInList) {
       tagInList.meta.order = order
     } else {
-      tag.meta.menuId = getStore({ name: 'active_menu_id' })
+      const { activeMenuId } = useMenusStore()
+      tag.meta.menuId = activeMenuId
       tag.meta.order = order
       tags.arr.push(tag)
     }

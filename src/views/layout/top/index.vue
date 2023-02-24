@@ -73,7 +73,9 @@ const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore()
 
 // 切换暗黑模式
-const isDark = useDark()
+const isDark = useDark({
+  storageKey: 'system-color-theme'
+})
 const toggleDark = useToggle(isDark)
 
 /**

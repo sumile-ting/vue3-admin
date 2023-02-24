@@ -1,15 +1,16 @@
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { setStore, getStore } from '@/util/store'
+import { useStorage } from '@vueuse/core'
 
 export const useUserStore = defineStore('user', () => {
-  const userInfo = reactive(getStore({ name: 'user_info' }) || {})
+  const userInfo = ref(useStorage('system-user_info', {}))
+  const accessToken = ref(useStorage('system-access_token', ''))
 
   function setUserInfo (info) {
     Object.assign(userInfo, info)
-    setStore({ name: 'user_info', content: info })
-    setStore({ name: 'access_token', content: info.access_token })
+    userInfo.value = info
+    accessToken.value = info.access_token
   }
 
-  return { userInfo, setUserInfo }
+  return { userInfo, setUserInfo, accessToken }
 })
