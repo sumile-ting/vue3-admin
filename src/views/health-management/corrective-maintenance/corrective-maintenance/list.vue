@@ -1,6 +1,9 @@
 <!--  -->
 <template>
-  <div>故障报修</div>
+  <BasicContainer>
+    <div>故障报修</div>
+  </BasicContainer>
+  
 </template>
 
 <script setup>

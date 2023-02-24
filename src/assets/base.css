@@ -11,9 +11,10 @@ body {
   --sumile-top-active-border-bottom-color:#8FC4FF;
   --sumile-backgournd-layout: #f5f5f5;
   --el-color-primary: #5e97f9;
+  --el-card-border-color: var(--el-border-color-lighter);
 }
 
-.red-theme body{
+html.red-theme body{
   --el-color-primary: #D24646;
   --sumile-top-background: #BF2525;
   --sumile-aside-active-menu-background: #f6e5e5;
@@ -31,6 +32,11 @@ html.dark body{
   --sumile-top-active-background: linear-gradient(180deg,rgba(168,21,21,0), rgba(255, 255, 255, .5));
   --sumile-top-active-border-bottom-color:rgba(255, 255, 255, .5);
   --el-menu-active-color: #A6ACC1;
+}
+
+body .el-card {
+  --el-card-border-color: var(--el-border-color-lighter);
+  --el-card-border-radius: var(--sumile-card-border-radius);
 }
 
 #sumile-app .sumile--collapse {

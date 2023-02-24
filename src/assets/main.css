@@ -38,10 +38,6 @@ html.dark, .dark body {
   margin: 12px 0;
 }
 
-.sumile-box-card {
-  border: none;
-  border-radius: var(--sumile-card-border-radius);
-}
 
 /** 侧边菜单 start **/
 .sumile-aside .el-menu--collapse .sumile-aside-menu-items .el-sub-menu .el-sub-menu__icon-arrow {

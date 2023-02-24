@@ -1,16 +1,18 @@
 <!--设备台账 -->
 <template>
-  <div class="sumile-basic-container">
-    <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
-      <template #installPosition="slotProps">
-        <el-input :placeholder="slotProps.placeholder" v-model="searchForm.installPosition"/>
-      </template>
-    </SearchPanel>
-    <div class="sumile-basic-container-table">
-      <div class="sumile-basic-container-table-operator">
-        <el-button type="primary" @click="onAdd">新增</el-button>
-      </div>
-      <el-table :data="tableData" border  style="width: 100%">
+  <BasicContainer>
+    <template #search>
+      <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
+        <template #installPosition="slotProps">
+          <el-input :placeholder="slotProps.placeholder" v-model="searchForm.installPosition"/>
+        </template>
+      </SearchPanel>
+    </template>
+
+    <template #operator>
+      <el-button type="primary" @click="onAdd">新增</el-button>
+    </template>
+    <el-table :data="tableData" border  style="width: 100%">
         <el-table-column fixed prop="date" label="Date" width="150" />
         <el-table-column prop="name" label="Name" width="120" />
         <el-table-column prop="state" label="State" width="120" />
@@ -26,13 +28,13 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
-  </div>
+  </BasicContainer>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
 
+// 引入unplugin-vue-components后底下的导入可去掉
 // import SearchPanel from '@/components/search-panel/index.vue'
 
 const searchOption = reactive({

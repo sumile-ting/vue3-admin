@@ -1,6 +1,6 @@
 <!-- 个人信息 -->
 <template>
-  <el-card class="sumile-box-card" shadow="always">
+  <el-card shadow="always">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-change="handleClick">
       <el-tab-pane label="个人信息" name="first">
         <el-form

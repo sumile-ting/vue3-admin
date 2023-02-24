@@ -1,4 +1,4 @@
-<!-- 公共的查询Panel -->
+<!-- 自适应的公共查询Panel -->
 <template>
     <div class="sumile-basic-container-search">
       <el-form :inline="true" :model="props.model" class="sumile-search-form">
