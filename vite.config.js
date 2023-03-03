@@ -66,6 +66,8 @@ export default defineConfig({
         changeOrigin: true,
         target: 'https://mock.mengxuegu.com/mock/63f461cfc5a76a117cab125b/vue3Admin',
         rewrite: (path) => path.replace(/^\/api/, '/api')
+        // target: 'http://172.17.30.201:19000',
+        // rewrite: (path) => path.replace(/^\/api/, '/')
       }
     }
   }

@@ -29,7 +29,7 @@ export default [
         scope: 'all',
         tenant_id: '000000',
         user_name: 'admin',
-        real_name: '胜帮管理员',
+        real_name: '管理员',
         avatar: '',
         client_id: 'saber',
         first_login: 1,

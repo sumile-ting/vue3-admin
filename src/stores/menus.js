@@ -16,7 +16,8 @@ export const useMenusStore = defineStore('menus', () => {
     return new Promise(
       (resolve) => {
         $get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-system/menu/routesAdmin`, {
-          topMenuId: '1610517983698395138'
+          topMenuId: '1610517983698395138' //设备
+          //党建 1630735360625516546
         }).then(({ data }) => {
           const result = data.data
           menus.value = result

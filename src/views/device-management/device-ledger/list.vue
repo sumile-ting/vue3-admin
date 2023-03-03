@@ -10,7 +10,7 @@
     </template>
 
     <template #operator>
-      <el-button type="primary" @click="onAdd">新增</el-button>
+      <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
     </template>
     <el-table :data="tableData" border  style="width: 100%">
         <el-table-column fixed prop="date" label="Date" width="150" />

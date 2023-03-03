@@ -40,14 +40,15 @@ const onSubmit = () => {
 
   proxy.$post(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/token`, params, null, {
 		headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Tenant-Id': '000000'
     }			
 	}).then((res) => {
     setUserInfo(res.data)
     router.push({path: '/'})
   }, res => {
     ElMessage({
-      message: res.response.data.error_description,
+      message: res.response.data.error_description || '未知错误',
       type: "error"
     });
   })

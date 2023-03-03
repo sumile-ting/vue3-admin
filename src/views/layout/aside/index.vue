@@ -2,16 +2,18 @@
 <template>
   <el-aside class="sumile-aside">
     <div class="aside-menu">
-      <el-menu
-        :default-active="activeMenu"
-        class="sumile-aside-menus"
-        :collapse="isMenuCollapse"
-        menu-trigger="click"
-        unique-opened
-        router
-      >
-        <aside-menu-item :menus="menus"></aside-menu-item>
-      </el-menu>
+      <el-scrollbar>
+        <el-menu
+          :default-active="activeMenu"
+          class="sumile-aside-menus"
+          :collapse="isMenuCollapse"
+          menu-trigger="click"
+          unique-opened
+          router
+        >
+          <aside-menu-item :menus="menus"></aside-menu-item>
+        </el-menu>
+      </el-scrollbar>
     </div>
   </el-aside>
 </template>

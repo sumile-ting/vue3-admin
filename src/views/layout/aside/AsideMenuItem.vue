@@ -4,8 +4,9 @@
     <template v-for="item in menus">
       <el-menu-item :index="item.path" :key="item.id" v-if="!item.children || !item.children.length">
         <el-icon v-if="showIcon">
-          <i v-if="item.source" :class="item.source"></i>
-          <icon-menu v-else />
+          <!-- 暂时先注释掉 引入iconfont后放开-->
+          <!-- <i v-if="item.source" :class="item.source"></i> -->
+          <icon-menu />
         </el-icon>
         <template #title>{{ item.name }}</template>
       </el-menu-item>

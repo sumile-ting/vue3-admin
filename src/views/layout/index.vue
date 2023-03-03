@@ -3,7 +3,7 @@
   <div class="common-layout" :class="{'sumile--collapse': isMenuCollapse}">
       <el-container class="sumile-container" direction="vertical">
         <Top></Top>
-        <el-container>
+        <el-container class="sumile-el-container">
           <Aside></Aside>
           <el-main class="sumile-main">
             <Tags />
@@ -26,6 +26,9 @@ const {isMenuCollapse} = toRefs(useMenusStore())
 <style scoped>
 .sumile-container {
   height: 100%;
+}
+.sumile-el-container {
+  height: calc(100% - var(--sumile-header-height));
 }
 .sumile-main {
   padding: 15px 15px 15px 0;
