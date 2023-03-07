@@ -75,6 +75,6 @@ const handleClick = function (tab) {
 
 <style scoped>
 .sumile-tags {
-  height: 45px;
+  margin-bottom: 5px;
 }
 </style>

@@ -71,7 +71,6 @@ const router = createRouter({
  * @returns
  */
 export function generatorRouterTree (menus, parent) {
-  window.console.log(menus)
   if (!menus || menus.length === 0) return
   const routers = []
   for (let i = 0; i < menus.length; i++) {
@@ -117,15 +116,13 @@ export function generatorRouterTree (menus, parent) {
       routerMap.children = generatorRouterTree(item.children, false)
     }
     routers.push(routerMap)
-  
-  console.log('routers')
-  console.log(routers)
+  }
+
   if (parent) {
-    router.addRoute(routers)
+    routers.forEach((ele) => router.addRoute(ele))
   } else {
     return routers
   }
-}
 }
 const menus = JSON.parse(window.localStorage.getItem('system-menus') || '[]')
 generatorRouterTree(menus, true)

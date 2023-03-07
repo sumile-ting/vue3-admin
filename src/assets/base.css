@@ -9,7 +9,7 @@ body {
   --sumile-top-background: #5682dc;
   --sumile-top-active-background: linear-gradient(180deg, rgba(94,151,249,0) 0%, #5E97F9 100%);
   --sumile-top-active-border-bottom-color:#8FC4FF;
-  --sumile-backgournd-layout: #f5f5f5;
+  --sumile-background-layout: #f4f5fa;
   --el-color-primary: #5e97f9;
   --el-card-border-color: var(--el-border-color-lighter);
 }

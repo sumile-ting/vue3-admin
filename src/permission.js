@@ -8,6 +8,7 @@ import { useMenusStore } from '@/stores/menus'
 import { useUserStore } from '@/stores/user'
 import config from '@/config/index'
 import { getLeafPath } from '@/util/util'
+import { metadata } from '@iconify-json/ep'
 
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
@@ -20,20 +21,25 @@ router.beforeEach(async (to, from, next) => {
       })
     } else {
       const { menus, getMenus } = useMenusStore()
-      let result = []
       if (!menus || !menus.length) {
-        result = await getMenus()
-        generatorRouterTree(result, true)
-      } else {
-        generatorRouterTree(menus, true)
-      }
-      if (!menus.length && !result.length) {
-        next('/404')
+        const result = await getMenus()
+        if (result.length) {
+          generatorRouterTree(result, true)
+        } else {
+          next('/404')
+        }
       }
 
       const meta = to.meta || {}
       if (meta.isTab !== false && ((!config.showIndexPage && to.path !== '/index') || config.showIndexPage)) {
         meta.order = meta.order || 0
+        if (to.matched.length && to.matched.length < 3) {
+          meta.parentPath = to.matched[to.matched.length].path
+        } else if (to.matched.length && to.matched.length >= 3) {
+          meta.parentPath = to.matched[2].path
+        } else {
+          meta.parentPath = to.path
+        }
         const { addTag } = useTagsStore()
         addTag({
           value: to.query.src || to.fullPath,
