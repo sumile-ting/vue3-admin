@@ -20,13 +20,15 @@ router.beforeEach(async (to, from, next) => {
       })
     } else {
       const { menus, getMenus } = useMenusStore()
+      let result = []
       if (!menus || !menus.length) {
-        const result = await getMenus()
-        if (result.length) {
-          generatorRouterTree(result, true)
-        } else {
-          next('/404')
-        }
+        result = await getMenus()
+        generatorRouterTree(result, true)
+      } else {
+        generatorRouterTree(menus, true)
+      }
+      if (!menus.length && !result.length) {
+        next('/404')
       }
 
       const meta = to.meta || {}
