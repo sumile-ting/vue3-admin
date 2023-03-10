@@ -34,7 +34,7 @@ router.beforeEach(async (to, from, next) => {
       if (meta.isTab !== false && ((!config.showIndexPage && to.path !== '/index') || config.showIndexPage)) {
         meta.order = meta.order || 0
         if (to.matched.length && to.matched.length < 3) {
-          meta.parentPath = to.matched[to.matched.length].path
+          meta.parentPath = to.matched[to.matched.length - 1].path
         } else if (to.matched.length && to.matched.length >= 3) {
           meta.parentPath = to.matched[2].path
         } else {

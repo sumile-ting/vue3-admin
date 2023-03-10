@@ -1,6 +1,6 @@
 <!--设备台账 -->
 <template>
-  <BasicContainer>
+  <BasicContainer :show-pagination="!!tableData.total">
     <template #search>
       <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
         <template #installPosition="slotProps">
@@ -11,32 +11,69 @@
 
     <template #operator>
       <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
+      <el-button type="primary" icon="Upload" plain>导入</el-button>
+      <el-button type="danger" icon="Delete" plain>删除</el-button>
     </template>
-    <el-table :data="tableData" border  style="width: 100%">
-        <el-table-column fixed prop="date" label="Date" width="150" />
-        <el-table-column prop="name" label="Name" width="120" />
-        <el-table-column prop="state" label="State" width="120" />
-        <el-table-column prop="city" label="City" width="120" />
-        <el-table-column prop="address" label="Address"  />
-        <el-table-column prop="zip" label="Zip" width="120" />
-        <el-table-column fixed="right" label="Operations" width="220">
-          <template #default>
-            <el-button link type="primary" size="small" @click="handleClick"
-              >Detail</el-button
-            >
-            <el-button link type="primary" size="small">Edit</el-button>
+    <template #default >
+      <el-table :data="tableData.records" border stripe height="100%" ref="tableRef" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" />
+        <el-table-column prop="company" label="公司" min-width="150" width="150"/>
+        <el-table-column prop="content" label="内容" show-overflow-tooltip/>
+        <el-table-column prop="date" label="日期" width="150" />
+        <el-table-column prop="address" label="地址" width="200" show-overflow-tooltip/>
+        <el-table-column prop="status" label="状态" width="120" >
+          <template #default="{row}">
+            <sumile-status-column type="primary" :color="statusColor(row.status)">{{ statusFilter(row.status) }}</sumile-status-column>
+          </template>
+        </el-table-column>
+        <el-table-column prop="process" label="进度" width="150" >
+          <template #default="{row}">
+            <el-progress :percentage="row.process" />
+          </template>
+          
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="160">
+          <template #default="{row}">
+            <sumile-operator-list :operators="operatorList(row.status)" @click="handleClick"></sumile-operator-list>
           </template>
         </el-table-column>
       </el-table>
+      <div class="sumile-table-alert mt-15px">
+        <el-tag>
+          <div>
+            <span class="c-gray">已选择<span style="color: var(--el-color-primary-light-3)">{{ selected.length }}</span>项</span>
+            <span class="c-black-085 ml-10px">共计<span class="mx-5px">{{tableData.total}}</span>条数据</span>
+          </div>
+          <el-button type="primary" text @click="clearSelection()">
+          清空已选
+          </el-button>
+        </el-tag>
+      </div>
+      <div class="sumile-pagination" v-if="tableData.total">
+        <el-pagination
+          v-model:current-page="page.currentPage"
+          v-model:page-size="page.pageSize"
+          :page-sizes="[10, 20, 50, 100]"
+          layout="prev, pager, next, sizes, jumper"
+          :total="tableData.total"
+          hide-on-single-page
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </template>
+
+
   </BasicContainer>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed, getCurrentInstance } from 'vue'
 
 // 引入unplugin-vue-components后底下的导入可去掉
 // import SearchPanel from '@/components/search-panel/index.vue'
 
+// 查询面板选项
 const searchOption = reactive({
   columns: [
     {
@@ -106,59 +143,121 @@ const searchOption = reactive({
   ]
 })
 
+ // 查询参数
 const searchForm = ref({})
+// 分页数据
+const page = reactive({
+  currentPage: 1,
+  pageSize: 20
+})
+// 表格数据
+const tableData = ref({total: 0, records: []})
+// 表格已选
+const selected = ref([])
+const tableRef = ref() // 表格ref
+const { proxy } = getCurrentInstance();
+
+// 获取表格数据
+function getTableData () {
+  const params = {
+    ...page,
+    ...searchForm.value
+  }
+  console.log('params::', params)
+  proxy.$get('/api/companies/page', params).then(({data}) => {
+    tableData.value = data.data
+  })
+}
+
+function handleSizeChange(val) {
+  page.pageSize = val
+  getTableData()
+}
+
+function handleCurrentChange(val) {
+  page.currentPage = val
+  getTableData()
+}
+
+// 初始化
+getTableData()
 
 // 点击查询
 const onQuery = (params) => {
-  console.log('query ing...', params)
+  getTableData()
 }
 
-const handleClick = () => {
-  console.log('click')
+const handleSelectionChange = function (val) {
+ selected.value = val
 }
 
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Home',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Office',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Home',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    state: 'California',
-    city: 'Los Angeles',
-    address: 'No. 189, Grove St, Los Angeles',
-    zip: 'CA 90036',
-    tag: 'Office',
-  },
-]
+const clearSelection = function(val) {
+  tableRef.value.clearSelection()
+}
 
+// 表格操作栏按钮事件
+const handleClick = (type) => {
+  console.log('click', type)
+}
+
+
+// 新增按钮
 const onAdd = function () {
 
 }
+
+// 表格操作栏按钮定义
+const operatorList = function (status) {
+  return [
+    {
+      label: '查看',
+      icon: 'Reading',
+      type: 'primary',
+      operator: 'show'
+    },
+    {
+      label: '编辑',
+      icon: 'EditPen',
+      type: 'primary',
+      operator: 'edit',
+      disabled: status === 2
+    },
+    {
+      label: '删除',
+      icon: 'Delete',
+      type: 'danger',
+      operator: 'delete'
+    },
+    {
+      label: '打印',
+      icon: 'Printer',
+      type: 'primary',
+      operator: 'print'
+    },
+    {
+      label: '导出',
+      icon: 'Download',
+      type: 'primary',
+      operator: 'export',
+      show: status !== 2
+    }
+  ]
+
+}
+/**
+ * 状态过滤器
+ * @param {*} status 
+ */
+function statusFilter(status) {
+  const statusArr = ['未开始', '进行中', '出错']
+  return statusArr[status]
+}
+
+function statusColor(status) {
+  const color = ['#62A6ED', '#47D56D', '#E35A7C']
+  return color[status]
+}
+
 
 
 </script>

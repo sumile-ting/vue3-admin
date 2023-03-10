@@ -13,6 +13,8 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+//自动导入
+import AutoImport from "unplugin-auto-import/vite"
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
@@ -23,9 +25,12 @@ export default(({mode}) => {
   return defineConfig({
     base: env.VITE_BASE_URL || '/',
     plugins: [vue(), vueJsx(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
       viteMockServe({
-        localEnabled: env.VITE_USE_MOCK || false,
-        prodEnabled: env.VITE_USE_MOCK || false, // 设置打包是否启用 mock 功能
+        localEnabled: env.VITE_USE_MOCK === 'true' || false,
+        prodEnabled: env.VITE_USE_MOCK === 'true' || false, // 设置打包是否启用 mock 功能
         // ↓解析根目录下的mock文件夹
         mockPath: 'src/mock',
         supportTs: false, // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件。

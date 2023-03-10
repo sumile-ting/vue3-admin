@@ -4,7 +4,6 @@ import Login from '../views/login/Login.vue'
 import Layout from '../views/layout/index.vue'
 const modules = import.meta.glob('../**/**/*.vue')
 const baseUrl = import.meta.env.BASE_URL
-console.log('*********', baseUrl, '***************')
 
 const router = createRouter({
   history: createWebHistory(baseUrl),

@@ -1,3 +1,4 @@
+/* message box start */
 .el-overlay-message-box .el-message-box{
   --el-messagebox-content-color :rgba(0,0,0,0.85);
   --el-messagebox-content-font-size: 16px;
@@ -17,3 +18,81 @@
   font-family: PingFangSC-Medium, PingFang SC, Noto Sans SC;
   font-weight: 500;
 }
+/* message box end */
+
+/* 表格操作栏按钮 start */
+.sumile-operator-btn.is-text {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.sumile-operator-btn.is-text+.sumile-operator-btn.is-text {
+  margin-left: 10px;
+}
+
+.sumile-operator-btn.is-text:not(.is-disabled):focus, .sumile-operator-btn.is-text:not(.is-disabled):hover {
+  background-color: var(--el-button-hover-bg-color);
+  color: var(--el-button-hover-text-color);
+}
+/* 表格操作栏按钮 end */
+
+/* 表格 start */
+.el-table .el-table__header .cell{
+  font-weight: 500;
+  font-family: PingFangSC-Medium, PingFang SC, Noto Sans SC;
+}
+
+.el-table .el-table__body .cell{
+  font-weight: 400;
+  font-family: PingFangSC-Regular, PingFang SC, Noto Sans SC;
+}
+ 
+.el-table .el-table__footer-wrapper tr th.el-table-fixed-column--left, 
+.el-table .el-table__footer-wrapper tr th.el-table-fixed-column--right,
+.el-table .el-table__header-wrapper tr th.el-table-fixed-column--left, 
+.el-table .el-table__header-wrapper tr th.el-table-fixed-column--right {
+  background: var(--el-table-header-bg-color);
+}
+/* 表格 end */
+
+/* 分页 start */
+.sumile-pagination {
+  padding-top: 16px;
+}
+.sumile-pagination .el-pagination {
+  justify-content: flex-end;
+}
+.sumile-pagination .el-pagination .btn-prev, 
+.sumile-pagination .el-pagination .btn-next,
+.sumile-pagination .el-pagination li {
+  color: rgba(0,0,0,0.65);
+  background: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid var(--el-border-color);
+}
+.sumile-pagination .el-pagination li:hover {
+  background: var(--el-bg-color-page);
+  color: rgba(0,0,0,0.65);
+}
+.sumile-pagination .el-pagination li.is-active {
+  background: var(--el-color-primary);
+  color: #fff;
+}
+.sumile-pagination .el-pagination li+li,
+.sumile-pagination .el-pagination .btn-next
+{
+  margin-left: 7px;
+}
+.sumile-pagination .el-pagination .btn-prev {
+  margin-right: 7px;
+}
+.sumile-pagination .el-pagination .el-select .el-input {
+  width: 73px;
+}
+.sumile-pagination .el-pagination__editor.el-input {
+  width: 43px;
+}
+.sumile-pagination .el-pagination__jump {
+  margin-left: 32px;
+}
+/* 分页 end */

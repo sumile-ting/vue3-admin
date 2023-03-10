@@ -13,18 +13,19 @@
   background: #fff;
   font-size: 13px;
   font-weight: normal;
-  color: #ccc;
+  color: rgba(0,0,0,0.45);
   border-left: none;
   box-shadow: 0px 8px 8px 0px rgb(69 90 199 / 7%);
-}
-.sumile-tags .sumile-tags-tabs .el-tabs__item.is-active {
-  background: var(--el-color-primary);
-  color: #fff;
 }
 
 .sumile-tags-tabs .el-tabs__item +  .el-tabs__item {
   margin-left: 10px;
 }
-/* .sumile-tags .sumile-tags-tabs .el-tabs__item .is-icon-close:hover{
-  background-color: transparent;
-} */
+
+.sumile-tags .sumile-tags-tabs .el-tabs__item:not(.is-active):hover {
+  color: var(--el-color-primary);
+}
+.sumile-tags .sumile-tags-tabs .el-tabs__item.is-active {
+  background: var(--el-color-primary);
+  color: #fff;
+}

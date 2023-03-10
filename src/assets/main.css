@@ -38,6 +38,10 @@ html.dark, .dark body {
   margin: 12px 0;
 }
 
+.c-black-085 {
+  color: rgba(0, 0, 0, .85);
+}
+
 
 /** 侧边菜单 start **/
 .sumile-aside .el-menu--collapse .sumile-aside-menu-items .el-sub-menu .el-sub-menu__icon-arrow {
@@ -72,6 +76,7 @@ html.dark, .dark body {
 .sumile-basic-container {
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
 .sumile-basic-container .sumile-basic-container-search {
@@ -80,6 +85,7 @@ html.dark, .dark body {
   padding: 18px 5px 0 5px;
   border-radius: var(--sumile-card-border-radius);
   position: relative;
+  margin-bottom: 18px;
 }
 
 .sumile-basic-container .sumile-basic-container-table {
@@ -87,8 +93,8 @@ html.dark, .dark body {
   box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
   padding: 15px;
   border-radius: var(--sumile-card-border-radius);
-  margin: 18px 0 0 0;
   flex: 1;
+  overflow-y: hidden;
 }
 .sumile-basic-container .sumile-basic-container-table-operator {
   margin-bottom: 12px;
@@ -122,3 +128,19 @@ html.dark, .dark body {
   box-shadow: 0 8px 8px 0 rgb(69 90 199 / 7%);
 }
 /** 右边内容区域 end **/
+
+/* 表格下方Alert区域 start */
+.sumile-table-alert .el-tag {
+  width: 100%;
+  padding: 10px 0 8px 12px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+}
+
+.sumile-table-alert .el-tag .el-tag__content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+/* 表格下方Alert区域 end */

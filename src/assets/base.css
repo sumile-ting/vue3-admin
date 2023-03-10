@@ -26,6 +26,7 @@ html.red-theme body{
 
 html.dark body{
   --el-color-primary: #A6ACC1;
+  --sumile-top-background: #3d0202;
   --el-menu-bg-color: #000;
   --sumile-aside-active-menu-background: rgba(255, 255, 255, .5);
   --el-menu-hover-bg-color: rgba(255, 255, 255, .5);
@@ -49,11 +50,20 @@ body .el-card {
 }
 
 #sumile-app .el-table {
-  --el-table-header-bg-color: rgba(0,0,0,0.04);
+  --el-table-header-bg-color: #f5f5f5;
+  --el-table-text-color: rgba(0,0,0,0.65);
+  --el-table-row-hover-bg-color: #ECF2FF;
+  --el-table-border-color: #f0f0f0;
 }
 
 #sumile-app .el-table thead {
   --el-table-header-text-color: rgba(0,0,0,0.85);
+}
+
+#sumile-app .el-pagination {
+  --el-pagination-button-width: 28px;
+  --el-pagination-button-height: 28px;
+  --el-pagination-item-gap: 7px;
 }
 
 *,
