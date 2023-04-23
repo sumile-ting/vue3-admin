@@ -1,30 +1,41 @@
 <!-- 封装表格组件 -->
 <template>
   <div class="sumile-table-wrapper">
+
+    <!-- 表格头部 操作按钮 -->
+    <div class="sumile-table-header mb-12px" v-if="$slots.tableHeader">
+      <div class="header-button-lf">
+        <slot name="tableHeader" :selectedList="selected" />
+      </div>
+    </div>
+
+    <!-- 表格主体 -->
     <el-table border stripe height="100%" ref="tableRef" v-bind="$attrs" :data="tableData.records" :row-key="props.rowKey"
       @selection-change="selectionChange">
-     
+      <!-- el-table 默认插槽 -->
+      <slot></slot>
       <template v-for="(item, index) in props.columns">
-        <el-table-column v-bind="item">          
-            <template #default="{row}" v-if="item.slot">
-              <slot :name="item.prop" v-bind="{row}" v-if="$slots[item.prop]"></slot>
-              <template v-else>{{ row[item.prop] }}</template>
-            </template>
-            <template #header="{column}"  v-if="item.headerSlot">
-              <slot :name="item.prop + 'Header'" v-bind="{column}" v-if="$slots[item.prop + 'Header']"></slot>
-              <template v-else>{{ item.label }}</template>
-            </template>         
+        <el-table-column v-bind="item">
+          <template #default="{ row }" v-if="item.slot">
+            <slot :name="item.prop" v-bind="{ row }" v-if="$slots[item.prop]"></slot>
+            <template v-else>{{ row[item.prop] }}</template>
+          </template>
+          <template #header="{ column }" v-if="item.headerSlot">
+            <slot :name="item.prop + 'Header'" v-bind="{ column }" v-if="$slots[item.prop + 'Header']"></slot>
+            <template v-else>{{ item.label }}</template>
+          </template>
         </el-table-column>
 
       </template>
 
 
     </el-table>
+    <!-- 表格下方的已选择XXx项共计XXX条数据 -->
     <div class="sumile-table-alert mt-15px" v-if="props.showAlert">
       <el-tag>
         <div>
           <span class="c-gray">已选择<span style="color: var(--el-color-primary-light-3)">{{ selected.length
-              }}</span>项</span>
+          }}</span>项</span>
           <span class="c-black-085 ml-10px">共计<span class="mx-5px">{{ tableData.total }}</span>条数据</span>
         </div>
         <el-button type="primary" text @click="clearSelection()">
@@ -32,6 +43,7 @@
         </el-button>
       </el-tag>
     </div>
+    <!-- 表格分页 -->
     <div class="sumile-pagination" v-if="props.pagination && tableData.total">
       <el-pagination v-model:current-page="page.currentPage" v-model:page-size="page.pageSize"
         :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next, sizes, jumper" :total="tableData.total"
@@ -86,6 +98,10 @@ const { tableData, getTableData, page, handleSizeChange, handleCurrentChange } =
 
 onMounted(() => { getTableData() })
 
+defineExpose({
+  getTableData,
+  page
+})
 </script>
 
 <style scoped>

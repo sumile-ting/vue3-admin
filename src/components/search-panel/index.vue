@@ -126,7 +126,7 @@ for(let i = 0; i < propsLength; i++) {
  * 查询
  */
 const onSubmit = () => {
-  emit('query-change', props.model)
+  emit('query-change', props.model, 'query')
 }
 
 /**
@@ -136,7 +136,7 @@ const onReset = () => {
   for(let key in props.model ) {
     props.model[key] = ''
   }
-  emit('query-change', props.model)
+  emit('query-change', props.model, 'reset')
 }
 </script>
 

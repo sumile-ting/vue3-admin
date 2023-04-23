@@ -19,28 +19,16 @@
 <script setup>
 import {computed} from 'vue'
 const props = defineProps({
-  // 是否显示分页
-  showPagination: {
-    type: Boolean,
-    default: true,
-    required: false
-  },
-  // 是否显示已选择Xx项
-  showAlert: {
-    type: Boolean,
-    default: true,
-    required: false
-  },
   // 是否显示表格上方的操作按钮
   showOperator: {
     type: Boolean,
-    default: true,
+    default: false,
     required: false
   }
 })
 
 const tableHeight = computed(() => {
-  const otherHeight = (props.showOperator ? 44 : 0) + (props.showAlert ? 53 : 0) + (props.showPagination ? 48 : 0)
+  const otherHeight = (props.showOperator ? 44 : 0)
   return `calc(100% - ${otherHeight}px)`
 })
 
