@@ -26,6 +26,7 @@ export default(({mode}) => {
     base: env.VITE_BASE_URL || '/',
     plugins: [vue(), vueJsx(),
       AutoImport({
+        imports: ['vue'],
         resolvers: [ElementPlusResolver()],
       }),
       viteMockServe({
@@ -73,6 +74,7 @@ export default(({mode}) => {
       }
     },
     server: {
+      host: '0.0.0.0',
       proxy: {
         '/api': {
           secure: false,

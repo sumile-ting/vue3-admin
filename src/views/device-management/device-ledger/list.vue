@@ -12,7 +12,7 @@
     <template #operator>
       <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
       <el-button type="primary" icon="Upload" plain>导入</el-button>
-      <el-button type="danger" icon="Delete" plain>删除</el-button>
+      <el-button type="danger" icon="Delete" plain @click="onDelete" :disabled="!selected.length">删除</el-button>
     </template>
     <template #default >
       <el-table :data="tableData.records" border stripe height="100%" ref="tableRef" @selection-change="handleSelectionChange">
@@ -56,7 +56,6 @@
           :page-sizes="[10, 20, 50, 100]"
           layout="prev, pager, next, sizes, jumper"
           :total="tableData.total"
-          hide-on-single-page
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -69,7 +68,9 @@
 
 <script setup>
 import { reactive, ref, computed, getCurrentInstance } from 'vue'
-
+import { ElMessage } from 'element-plus'
+import {useRouter} from 'vue-router'
+const router = useRouter()
 // 引入unplugin-vue-components后底下的导入可去掉
 // import SearchPanel from '@/components/search-panel/index.vue'
 
@@ -163,8 +164,7 @@ function getTableData () {
     ...page,
     ...searchForm.value
   }
-  console.log('params::', params)
-  proxy.$get('/api/companies/page', params).then(({data}) => {
+  proxy.$get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-companies/page`, params).then(({data}) => {
     tableData.value = data.data
   })
 }
@@ -198,11 +198,29 @@ const clearSelection = function(val) {
 // 表格操作栏按钮事件
 const handleClick = (type) => {
   console.log('click', type)
+  if(type === 'show') {
+    router.push('/device-management/device-ledger/detail')
+  }
 }
 
 
 // 新增按钮
 const onAdd = function () {
+  router.push('/device-management/device-ledger/add')
+}
+
+// 删除按钮
+const onDelete = function () {
+  if(!selected.value.length) {
+    return
+  }
+  proxy.$sumileMsgBox({
+    title: '提示',
+    type: 'warning',
+    subTitle: '确认删除？',
+    message: '操作后将无法恢复，请谨慎操作！',
+    showCancelButton: true
+  })
 
 }
 

@@ -31,7 +31,7 @@ const {isMenuCollapse} = toRefs(useMenusStore())
   height: calc(100% - var(--sumile-header-height));
 }
 .sumile-main {
-  padding: 15px 15px 15px 0;
+  padding: 15px 15px 0 0;
   display: flex;
   flex-direction: column;
 }

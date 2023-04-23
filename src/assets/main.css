@@ -81,7 +81,7 @@ html.dark, .dark body {
 
 .sumile-basic-container .sumile-basic-container-search {
   background: var(--el-bg-color-overlay);
-  box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
+  box-shadow: var(--sumile-box-shadow);
   padding: 18px 5px 0 5px;
   border-radius: var(--sumile-card-border-radius);
   position: relative;
@@ -90,8 +90,9 @@ html.dark, .dark body {
 
 .sumile-basic-container .sumile-basic-container-table {
   background: var(--el-bg-color-overlay);
-  box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
+  box-shadow: var(--sumile-box-shadow);
   padding: 15px;
+  margin-bottom: 15px;
   border-radius: var(--sumile-card-border-radius);
   flex: 1;
   overflow-y: hidden;
@@ -124,8 +125,13 @@ html.dark, .dark body {
   font-size: 12px;
   color: rgba(0,0,0,.45);
   cursor: pointer;
-  -webkit-box-shadow: 0 8px 8px 0 rgb(69 90 199 / 7%);
-  box-shadow: 0 8px 8px 0 rgb(69 90 199 / 7%);
+  box-shadow: var(--sumile-box-shadow);
+}
+
+.sumile-basic-card.el-card.is-always-shadow {
+  margin-bottom: 15px;
+  box-shadow: var(--sumile-box-shadow);
+  border: none;
 }
 /** 右边内容区域 end **/
 
@@ -144,3 +150,22 @@ html.dark, .dark body {
   justify-content: space-between;
 }
 /* 表格下方Alert区域 end */
+
+/* 表单详情 start */
+.no-wrap .el-form-item__content {  
+  max-width: calc(100% - 100px);
+  overflow: hidden;
+  color: rgba(0,0,0,0.65);
+  line-height: 28px;
+}
+.text-line-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  }
+  .el-form-item__label {
+    color: rgba(0,0,0,0.85);
+    line-height: 28px;
+  }
+/* 表单详情 end */

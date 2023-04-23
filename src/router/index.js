@@ -2,12 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
 import Login from '../views/login/Login.vue'
 import Layout from '../views/layout/index.vue'
+import staticRoutes from './static'
+
 const modules = import.meta.glob('../**/**/*.vue')
 const baseUrl = import.meta.env.BASE_URL
 
 const router = createRouter({
   history: createWebHistory(baseUrl),
   routes: [
+    ...staticRoutes,
     {
       path: '/',
       name: 'home',

@@ -1,6 +1,6 @@
 <!--设备台账 -->
 <template>
-  <BasicContainer :show-pagination="tableData.length" :show-alert="showAlert" :show-operator="false">
+  <BasicContainer :show-pagination="!!tableData.length" :show-alert="showAlert" :show-operator="false">
     <template #search>
       <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
         <template #installPosition="slotProps">

@@ -107,7 +107,7 @@ function clearChildMenu () {
   padding: 10px 0;
   background: var(--el-bg-color-overlay);
   border-radius: var(--sumile-card-border-radius);
-  box-shadow: 0px 8px 8px 0px rgb(69 90 199 / 7%);
+  box-shadow: var(--sumile-box-shadow);
 
 }
 

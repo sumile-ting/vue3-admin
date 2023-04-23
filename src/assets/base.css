@@ -12,6 +12,7 @@ body {
   --sumile-background-layout: #f4f5fa;
   --el-color-primary: #5e97f9;
   --el-card-border-color: var(--el-border-color-lighter);
+  --sumile-box-shadow: 0px 8px 8px 0px rgba(69,90,199,0.07);
 }
 
 html.red-theme body{
@@ -73,6 +74,21 @@ body .el-card {
   margin: 0;
   position: relative;
   font-weight: normal;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(144, 146, 152, 0.3);
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
 }
 
 body {

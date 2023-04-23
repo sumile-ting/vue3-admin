@@ -1,6 +1,6 @@
 <!-- 个人信息 -->
 <template>
-  <el-card shadow="always">
+  <sumile-page-layout :showFooter="false">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-change="handleClick">
       <el-tab-pane label="个人信息" name="first">
         <el-form
@@ -70,7 +70,7 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
-  </el-card>
+  </sumile-page-layout>
 </template>
 
 <script setup>
@@ -91,7 +91,7 @@ const rules = reactive({
 });
 const handleClick = (tab, event) => {
   if (activeName.value === "first") {
-    proxy.$get("/api/sumile-auth/oauth/user-info").then((res) => {
+    proxy.$get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/user-info`).then((res) => {
       Object.assign(ruleForm, res.data.data);
     });
   }
@@ -167,8 +167,10 @@ const clearPassword = (formEl) => {
 handleClick();
 </script>
 
-<style scoped></style>
-<style>
+<style scoped>
+.sumile-basic-card:deep(>.el-card__body) {
+  padding-top: 10px;
+}
 .avatar-uploader .el-upload {
   border: 1px dashed var(--el-border-color);
   border-radius: 6px;
@@ -191,3 +193,4 @@ handleClick();
   text-align: center;
 }
 </style>
+ 

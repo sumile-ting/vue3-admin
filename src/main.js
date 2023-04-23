@@ -8,6 +8,9 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
+//自定义组件
+import SumileMessageBox from './components/sumile-message-box'
+
 import './assets/main.css'
 import 'uno.css'
 
@@ -27,4 +30,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
+app.use(SumileMessageBox)
 app.mount('#sumile-app')

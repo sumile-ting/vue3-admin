@@ -18,6 +18,18 @@
   font-family: PingFangSC-Medium, PingFang SC, Noto Sans SC;
   font-weight: 500;
 }
+
+.sumile-message-box .el-message-box__status{
+  top: 15px;
+}
+.sumile-message-box .sumile-message-box-content > div {
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC, Noto Sans SC;
+  font-weight: 400;
+}
+.sumile-message-box .el-message-box__status.el-message-box-icon--warning {
+  --el-messagebox-color: var(--el-color-primary);
+}
 /* message box end */
 
 /* 表格操作栏按钮 start */
