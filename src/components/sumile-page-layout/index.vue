@@ -26,6 +26,7 @@
 
 <script setup>
 import {computed} from 'vue'
+import useTag from '@/views/layout/top/tags.js'
 const emits = defineEmits(['cancel', 'confirm'])
 const props = defineProps({
   title: {
@@ -56,11 +57,15 @@ const contentHeight = computed(() => {
   }
 })
 
+const {closeTag} = useTag()
+
 const cancel = function () {
+  closeTag()
   emits('cancel')
 }
 
 const confirm = function () {
+  closeTag()
   emits('confirm')
 }
 

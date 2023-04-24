@@ -1,50 +1,39 @@
 # project-vue3 
+---
+项目基于Vue3+Vueuse+ElementPlus+UnoCSS+iconify-json/ep
+[🎉 地址](https://github.com/sumile-ting/vue3-admin.git)
+[🎉 在线地址](https://sumile-ting.github.io/vue3-admin)
+[🎉 图标集](https://icones.js.org/collection/ep)
+[🎉 CSS类库](https://uno.antfu.me/)
 
-This template should help get you started developing with Vue 3 in Vite.
-
-Vue3+Vueuse+ElementPlus+iconify-json/ep
-
-在线地址：https://sumile-ting.github.io/vue3-admin
-
-图标集：https://icones.js.org/collection/ep
-
-CSS类库：https://uno.antfu.me/
-
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+##开发
+```
+# 项目初始化
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+#项目启动
 npm run dev
-```
 
-###  Development with Mock Datas
-
-```sh
+#使用Mock启动项目
 npm run dev:mock
-```
 
-### Compile and Minify for Production
-
-```sh
+#打包
 npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+#Lint with [ESLint](https://eslint.org/)
 npm run lint
 ```
+##组件
+- basic-container 
+  页面布局组件，上搜索，下表格布局
+
+- sumile-page-layout
+  新开页布局，如新增后跳转的页面、查看详情的页面
+
+- sumile-table
+  通用的表格组件
+
+- sumile-message-box
+  弹框展示上下两行信息，如删除按钮弹框
+  
+

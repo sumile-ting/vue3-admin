@@ -128,6 +128,7 @@ const columns = [
   {
     label: '内容',
     prop: 'content',
+    showOverflowTooltip: true
   },
   {
     label: '日期',
@@ -137,7 +138,8 @@ const columns = [
   {
     label: '地址',
     prop: 'address',
-    width: 200
+    width: 200,
+    showOverflowTooltip: true
   },
   {
     label: '状态',

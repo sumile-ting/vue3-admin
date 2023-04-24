@@ -29,3 +29,21 @@
   background: var(--el-color-primary);
   color: #fff;
 }
+.sumile-tags .sumile-tags-tabs .el-tabs__nav-wrap.is-scrollable {
+  padding: 0 38px;
+}
+.sumile-tags .sumile-tags-tabs .el-tabs__nav-next, 
+.sumile-tags .sumile-tags-tabs .el-tabs__nav-prev {
+  line-height: 28px;
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  box-shadow: var(--sumile-box-shadow);
+  border-radius: 4px;
+}
+.sumile-tags .sumile-tags-right .el-button:hover,
+.sumile-tags .sumile-tags-right .el-button:focus,
+.sumile-tags .sumile-tags-right .el-button:active {
+  color: var(--el-color-primary);
+  background-color: #fff
+}
