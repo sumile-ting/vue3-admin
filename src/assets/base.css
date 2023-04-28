@@ -41,6 +41,13 @@ body .el-card {
   --el-card-border-radius: var(--sumile-card-border-radius);
 }
 
+@media screen and (max-width: 768px) {
+  body {
+    --sumile-aside-width: 0;
+  }
+ 
+}
+
 #sumile-app .sumile--collapse {
   --sumile-aside-width: auto;
 }

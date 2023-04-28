@@ -1,3 +1,4 @@
+/* 顶部tags区域 */
 .sumile-tags .sumile-tags-tabs .el-tabs__header{
   border-bottom: none;
   margin: 0;
@@ -28,7 +29,9 @@
 .sumile-tags .sumile-tags-tabs .el-tabs__item.is-active {
   background: var(--el-color-primary);
   color: #fff;
+  border-bottom: none;
 }
+
 .sumile-tags .sumile-tags-tabs .el-tabs__nav-wrap.is-scrollable {
   padding: 0 38px;
 }

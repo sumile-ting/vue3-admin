@@ -26,14 +26,12 @@ npm run lint
 ##组件
 - basic-container 
   页面布局组件，上搜索，下表格布局
-
+  <img src='https://sumile-ting.github.io/vue3-admin/img/basic-container1.png' width="700">
 - sumile-page-layout
   新开页布局，如新增后跳转的页面、查看详情的页面
-
+  <img src='https://sumile-ting.github.io/vue3-admin/img/page-layout.png' width="700">
 - sumile-table
   通用的表格组件
-
 - sumile-message-box
-  弹框展示上下两行信息，如删除按钮弹框
-  
-
+  通用的弹框组件，如删除按钮弹框
+  <img src='https://sumile-ting.github.io/vue3-admin/img/dialog.png' width="700">

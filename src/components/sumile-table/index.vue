@@ -44,11 +44,13 @@
       </el-tag>
     </div>
     <!-- 表格分页 -->
-    <div class="sumile-pagination" v-if="props.pagination && tableData.total">
-      <el-pagination v-model:current-page="page.currentPage" v-model:page-size="page.pageSize"
-        :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next, sizes, jumper" :total="tableData.total"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange" />
-    </div>
+    <sumile-pagination 
+      v-if="props.pagination && tableData.total" 
+      v-model:current-page="page.currentPage" 
+      v-model:page-size="page.pageSize"
+      :total="tableData.total"
+      :miniView="props.miniView"
+    ></sumile-pagination>
   </div>
 </template>
 
@@ -89,14 +91,20 @@ const props = defineProps({
   dataCallBack: {
     type: Function,
     default: null
+  },
+  // 是否是在dialog中显示表格，dialog中的表格分页和正常表格有区分
+  miniView: {
+    type: Boolean,
+    default: false
   }
 })
 const tableRef = ref() // 表格ref
 const { selected, selectionChange, clearSelection } = useSelect(props.rowKey, tableRef)
 
-const { tableData, getTableData, page, handleSizeChange, handleCurrentChange } = useTable(props.requestApi, props.dataCallBack, props.pagination, props.pageSize)
+const { tableData, getTableData, page } = useTable(props.requestApi, props.dataCallBack, props.pagination, props.pageSize)
 
 onMounted(() => { getTableData() })
+
 
 defineExpose({
   getTableData,

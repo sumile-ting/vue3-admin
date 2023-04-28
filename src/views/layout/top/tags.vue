@@ -64,5 +64,6 @@ watch(
   font-size: 12px;
   font-weight: 400;
   color: rgba(0,0,0,0.45);
+  background-color: #fff;
 }
 </style>

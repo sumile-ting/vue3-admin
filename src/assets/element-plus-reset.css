@@ -71,9 +71,6 @@
 .sumile-pagination {
   padding-top: 16px;
 }
-.sumile-pagination .el-pagination {
-  justify-content: flex-end;
-}
 .sumile-pagination .el-pagination .btn-prev, 
 .sumile-pagination .el-pagination .btn-next,
 .sumile-pagination .el-pagination li {
@@ -107,4 +104,27 @@
 .sumile-pagination .el-pagination__jump {
   margin-left: 32px;
 }
+.sumile-pagination.pagination--mini .el-pagination .btn-prev,
+.sumile-pagination.pagination--mini .el-pagination .btn-next,
+.sumile-pagination.pagination--mini .el-pagination li {
+  border: none;
+}
+
 /* 分页 end */
+
+/* card start */
+#sumile-app .el-card.is-always-shadow {
+  box-shadow: var(--sumile-box-shadow);
+  border: none;
+}
+/* card start */
+
+
+.sumile-basic-container--top .el-tabs__nav-wrap::after {
+  background-color: rgba(0,0,0,0);
+}
+
+
+.el-tabs__item:focus-visible {
+  box-shadow: none;
+}

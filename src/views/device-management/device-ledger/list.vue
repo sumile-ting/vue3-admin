@@ -4,30 +4,33 @@
     <template #search>
       <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
         <template #installPosition="slotProps">
-          <el-input :placeholder="slotProps.placeholder" v-model="searchForm.installPosition"/>
+          <el-input :placeholder="slotProps.placeholder" v-model="searchForm.installPosition" />
         </template>
       </SearchPanel>
     </template>
 
-    <template #default >
+    <template #default>
 
-    <sumile-table :columns="columns" :requestApi="getTableData" ref="myTable">
-    
-      <template #tableHeader="scope">
-        <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
-        <el-button type="primary" icon="Upload" plain>导入</el-button>
-        <el-button type="danger" icon="Delete" plain @click="onDelete(scope.selectedList)" :disabled="!scope.selectedList.length">删除</el-button>
-      </template>
-      <template #status="{row}">
-        <sumile-status-column type="primary" :color="statusColor(row.status)">{{ statusFilter(row.status) }}</sumile-status-column>
-      </template>
-      <template #process="{row}">
-        <el-progress :percentage="row.process" />
-      </template>
-      <template #operation="{row}">
-        <sumile-operator-list :operators="operatorList(row.status)" @click="handleClick"></sumile-operator-list>
-      </template>
-    </sumile-table>
+      <sumile-table :columns="columns" :requestApi="getTableData" ref="myTable">
+
+        <template #tableHeader="scope">
+          <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
+          <el-button type="primary" icon="Upload" plain>导入</el-button>
+          <el-button type="danger" icon="Delete" plain @click="onDelete(scope.selectedList)"
+            :disabled="!scope.selectedList.length">删除</el-button>
+        </template>
+        <template #status="{ row }">
+          <sumile-status-column type="primary" :color="statusColor(row.status)">{{ statusFilter(row.status)
+          }}</sumile-status-column>
+        </template>
+        <template #process="{ row }">
+          <el-progress :percentage="row.process" />
+        </template>
+        <template #operation="{ row }">
+          <sumile-operator-list :operators="operatorList(row.status)"
+            @click="(type) => handleClick(type, row)"></sumile-operator-list>
+        </template>
+      </sumile-table>
 
     </template>
 
@@ -38,7 +41,7 @@
 <script setup>
 import { reactive, ref, computed, getCurrentInstance } from 'vue'
 import { ElMessage } from 'element-plus'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 const router = useRouter()
 
 // 查询面板选项
@@ -111,7 +114,7 @@ const searchOption = reactive({
   ]
 })
 
- // 查询参数
+// 查询参数
 const searchForm = ref({})
 
 const myTable = ref()
@@ -153,7 +156,7 @@ const columns = [
     width: '150',
     slot: true
   },
-{
+  {
     label: '操作',
     prop: 'operation',
     width: '160',
@@ -175,31 +178,16 @@ function getTableData (page) {
 
 // 点击查询
 const onQuery = (params, op) => {
-  if(op === 'query') {
+  if (op === 'query') {
     myTable.value.page.currentPage = 1
     myTable.value.page.pageSize = 20
   }
   myTable.value.getTableData()
 }
 
-
-// 表格操作栏按钮事件
-const handleClick = (type) => {
-  console.log('click', type)
-  if(type === 'show') {
-    router.push('/device-management/device-ledger/detail')
-  }
-}
-
-
-// 新增按钮
-const onAdd = function () {
-  router.push('/device-management/device-ledger/add')
-}
-
 // 删除按钮
 const onDelete = function (selected) {
-  if(!selected.length) {
+  if (!selected.length) {
     return
   }
   proxy.$sumileMsgBox({
@@ -211,6 +199,25 @@ const onDelete = function (selected) {
   })
 
 }
+
+
+// 表格操作栏按钮事件
+const handleClick = (type, row) => {
+  console.log('click', type)
+  if (type === 'show') {
+    router.push('/device-management/device-ledger/detail')
+  } else if (type === 'delete') {
+    onDelete([row])
+  }
+}
+
+
+// 新增按钮
+const onAdd = function () {
+  router.push('/device-management/device-ledger/add')
+}
+
+
 
 // 表格操作栏按钮定义
 const operatorList = function (status) {
@@ -254,12 +261,12 @@ const operatorList = function (status) {
  * 状态过滤器
  * @param {*} status 
  */
-function statusFilter(status) {
+function statusFilter (status) {
   const statusArr = ['未开始', '进行中', '出错']
   return statusArr[status]
 }
 
-function statusColor(status) {
+function statusColor (status) {
   const color = ['#62A6ED', '#47D56D', '#E35A7C']
   return color[status]
 }
@@ -268,6 +275,4 @@ function statusColor(status) {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

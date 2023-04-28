@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 export default (requestApi, dataCallBack, pagination, pageSize) => {
   const page = reactive({ currentPage: 1, pageSize: pageSize })
   const tableData = ref({ total: 0, records: [] })
@@ -22,6 +22,10 @@ export default (requestApi, dataCallBack, pagination, pageSize) => {
     page.currentPage = val
     getTableData()
   }
+
+  watch(() => (page.currentPage), (val) => handleCurrentChange(val))
+
+  watch(() => (page.pageSize), (val) => handleSizeChange(val))
 
   return {
     page,

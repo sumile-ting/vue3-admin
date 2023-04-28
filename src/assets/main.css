@@ -133,6 +133,12 @@ html.dark, .dark body {
   box-shadow: var(--sumile-box-shadow);
   border: none;
 }
+
+.sumile-container-tabs .el-tabs__item {
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(0, 0, 0, .65);
+}
 /** 右边内容区域 end **/
 
 /* 表格下方Alert区域 start */
