@@ -203,6 +203,10 @@ function goHomePage () {
 .sumile-top-menu .el-menu-item:not(.is-disabled).is-active {
    background: var(--sumile-top-active-background);
 }
+.sumile-top-menu .el-menu-item:not(.is-disabled):hover {
+  color: inherit;
+  background-color: inherit;
+}
 .el-dropdown-link {
   color: #fff;
 }

@@ -18,6 +18,7 @@
           <el-button type="primary" icon="Upload" plain>导入</el-button>
           <el-button type="danger" icon="Delete" plain @click="onDelete(scope.selectedList)"
             :disabled="!scope.selectedList.length">删除</el-button>
+          <el-button plain @click="openDrawer">打开抽屉</el-button>
         </template>
         <template #status="{ row }">
           <sumile-status-column type="primary" :color="statusColor(row.status)">{{ statusFilter(row.status)
@@ -31,7 +32,45 @@
             @click="(type) => handleClick(type, row)"></sumile-operator-list>
         </template>
       </sumile-table>
+      <el-drawer v-model="drawer2" direction="rtl" size="840" modal-class="custom-drawer">
+        <template #header>
+          <div class="text-14px font-500">抽屉标题</div>
+        </template>
+        <template #default>
+          <SearchPanel :option="searchOption" v-model:model="searchForm" @query-change="onQuery">
+            <template #installPosition="slotProps">
+              <el-input :placeholder="slotProps.placeholder" v-model="searchForm.installPosition" />
+            </template>
+          </SearchPanel>
+          <sumile-table :columns="columns" :requestApi="getTableData" ref="myTable">
 
+          <template #tableHeader="scope">
+            <el-button type="primary" icon="Plus" @click="onAdd">新增</el-button>
+            <el-button type="primary" icon="Upload" plain>导入</el-button>
+            <el-button type="danger" icon="Delete" plain @click="onDelete(scope.selectedList)"
+              :disabled="!scope.selectedList.length">删除</el-button>
+            <el-button plain @click="openDrawer">打开抽屉</el-button>
+          </template>
+          <template #status="{ row }">
+            <sumile-status-column type="primary" :color="statusColor(row.status)">{{ statusFilter(row.status)
+            }}</sumile-status-column>
+          </template>
+          <template #process="{ row }">
+            <el-progress :percentage="row.process" />
+          </template>
+          <template #operation="{ row }">
+            <sumile-operator-list :operators="operatorList(row.status)"
+              @click="(type) => handleClick(type, row)"></sumile-operator-list>
+          </template>
+          </sumile-table>
+        </template>
+        <template #footer>
+          <div style="flex: auto">
+            <el-button >取消</el-button>
+            <el-button>保存</el-button>
+          </div>
+        </template>
+      </el-drawer>
     </template>
 
 
@@ -271,8 +310,17 @@ function statusColor (status) {
   return color[status]
 }
 
-
+// 右侧抽屉
+const drawer2 = ref(false)
+function openDrawer () {
+  drawer2.value = true
+}
 
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.el-drawer__body) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>

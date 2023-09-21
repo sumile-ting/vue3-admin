@@ -128,3 +128,15 @@
 .el-tabs__item:focus-visible {
   box-shadow: none;
 }
+
+/* drawer start */
+.el-drawer__header>:first-child {
+  font-weight: 500;
+  color: rgba(0,0,0,0.85);
+  font-size: 16px;
+}
+.el-drawer__header {
+  margin-bottom: 0;
+  padding: 15px;
+}
+/* drawer end */

@@ -37,7 +37,7 @@
                     filterable />
                 </template>
                 <template v-if="item.slot">
-                  <slot :name="item.prop" :placeholder="'请输入' + item.label"></slot>
+                  <slot :name="item.prop" :placeholder="item.placeholder || '请输入' + item.label"></slot>
                 </template>
               </el-form-item>
 
@@ -116,8 +116,9 @@ const searchBtnMd = computed(() => {
 // 发起请求获取数据字典
 for(let i = 0; i < propsLength; i++) {
   if( props.option.columns[i].dictUrl) {
-    proxy.$get(`${props.option.columns[i].dictUrl}`).then(({data}) => {
-      props.option.columns[i].dictData = data.data
+    let index = i
+    proxy.$get(`${props.option.columns[index].dictUrl}`).then(({data}) => {
+      props.option.columns[index].dictData = data.data
     })
   }
 }

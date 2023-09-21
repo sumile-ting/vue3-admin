@@ -7,6 +7,7 @@ import ElementPlus from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 //自定义组件
 import SumileMessageBox from './components/sumile-message-box'
@@ -29,6 +30,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.use(createPinia())
 app.use(router)
-app.use(ElementPlus)
+app.use(ElementPlus, {
+  locale: zhCn,
+})
 app.use(SumileMessageBox)
 app.mount('#sumile-app')

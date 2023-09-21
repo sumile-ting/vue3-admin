@@ -27,7 +27,7 @@ export default(({mode}) => {
     plugins: [vue(), vueJsx(),
       AutoImport({
         imports: ['vue'],
-        resolvers: [ElementPlusResolver()],
+        // resolvers: [ElementPlusResolver()],
       }),
       viteMockServe({
         localEnabled: env.VITE_USE_MOCK === 'true' || false,
@@ -44,9 +44,9 @@ export default(({mode}) => {
       Components({
         // allow auto load markdown components under `./src/components/`
         extensions: ['vue', 'md'],
-        resolvers: [
-          ElementPlusResolver(),
-        ],
+        // resolvers: [
+        //   ElementPlusResolver(),
+        // ],
         // allow auto import and register components used in markdown
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         dts: 'src/components.js',
