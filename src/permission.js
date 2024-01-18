@@ -5,15 +5,13 @@
 import router, { generatorRouterTree } from './router'
 import { useTagsStore } from '@/stores/tags'
 import { useMenusStore } from '@/stores/menus'
-import { useUserStore } from '@/stores/user'
 import config from '@/config/index'
 import { getLeafPath } from '@/util/util'
+import { getToken } from '@/util/auth'
 
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
-  const { accessToken } = useUserStore()
-  const token = accessToken
-  if (token) {
+  if (getToken()) {
     if (to.path === '/login') { // 如果登录成功访问登录页跳转到主页
       next({
         path: '/'
