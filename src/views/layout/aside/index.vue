@@ -15,7 +15,7 @@
         </el-menu>
         <el-menu :default-active="activeSubMenu" class="sumile-aside-menus" :collapse="isMenuCollapse" menu-trigger="click"
           unique-opened v-else>
-          <aside-menu-item :menus="menus" @load-child-menu="loadChildMenu" :showIcon="childMenu.menu.length === 0"
+          <aside-menu-item :menus="asideMenus" @load-child-menu="loadChildMenu" :showIcon="childMenu.menu.length === 0"
             :activeMenu="activeMenu">
           </aside-menu-item>
         </el-menu>
@@ -35,11 +35,19 @@ const childMenu = ref({
   menu: []
 })
 
-const { isMenuCollapse } = toRefs(useMenusStore())
-const menus = computed(() => {
-  const { activeMenuId, menus } = useMenusStore()
-  let menu = menus.find(menu => activeMenuId === menu.id)
-  return menu && menu.children && menu.children.length ? menu.children : [];
+const { isMenuCollapse, menus,  activeMenuId} = toRefs(useMenusStore())
+
+const asideMenus = ref([])
+function loadAsideMenus() {
+  let menu = menus.value.find(menu => activeMenuId.value === menu.id)
+  asideMenus.value = menu && menu.children && menu.children.length ? menu.children : [];
+}
+
+loadAsideMenus()
+
+
+watch(() => (activeMenuId.value), () => {
+  loadAsideMenus()
 })
 
 const route = useRoute()

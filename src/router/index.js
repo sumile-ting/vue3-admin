@@ -60,10 +60,6 @@ const router = createRouter({
         isAuth: false,
         isTab: false
       }
-    },
-    {
-      path: '/:pathMatch(.*)',
-      redirect: '/404'
     }
   ]
 })
@@ -130,4 +126,13 @@ export function generatorRouterTree (menus, parent) {
 }
 const menus = JSON.parse(window.localStorage.getItem('system-menus') || '[]')
 generatorRouterTree(menus, true)
+setTimeout(() => {
+  router.addRoute(
+    {
+      path: '/:pathMatch(.*)',
+      redirect: '/404'
+    }
+  )
+  router.replace(router.currentRoute.value.fullPath)
+}, 500)
 export default router

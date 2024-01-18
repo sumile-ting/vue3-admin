@@ -8,7 +8,6 @@ import { useMenusStore } from '@/stores/menus'
 import { useUserStore } from '@/stores/user'
 import config from '@/config/index'
 import { getLeafPath } from '@/util/util'
-import { metadata } from '@iconify-json/ep'
 
 router.beforeEach(async (to, from, next) => {
   const meta = to.meta || {}
