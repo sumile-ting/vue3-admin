@@ -43,9 +43,10 @@ function loadAsideMenus() {
   asideMenus.value = menu && menu.children && menu.children.length ? menu.children : [];
 }
 
+// 加载侧边菜单
 loadAsideMenus()
 
-
+// 顶部菜单切换，重新加载左侧菜单
 watch(() => (activeMenuId.value), () => {
   loadAsideMenus()
 })

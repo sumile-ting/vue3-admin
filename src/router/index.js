@@ -126,6 +126,8 @@ export function generatorRouterTree (menus, parent) {
 }
 const menus = JSON.parse(window.localStorage.getItem('system-menus') || '[]')
 generatorRouterTree(menus, true)
+
+// 延迟加载兜底路由，防止同时开两个页签， 其中一个退出。另一个跳转404
 setTimeout(() => {
   router.addRoute(
     {
@@ -133,6 +135,7 @@ setTimeout(() => {
       redirect: '/404'
     }
   )
+  // 重载当前路由，因为vue-router4动态加载路由，需要手动调用 router.replace() 来改变当前的位置
   router.replace(router.currentRoute.value.fullPath)
 }, 500)
 export default router
