@@ -28,6 +28,7 @@ const activeTopMenuId = ref()
 const route = useRoute()
 
 watchEffect(() => {
+  // 根据当前页面地址查找顶部菜单的id
   const node = findRootNodeByPath(menus.value, route.path)
   activeTopMenuId.value =  node?.id || ''
 })
