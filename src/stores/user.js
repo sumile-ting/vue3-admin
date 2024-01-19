@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user', () => {
     Object.assign(userInfo, info)
     userInfo.value = info
     accessToken.value = info.access_token
-    setToken(info.access_token)
+    setToken(info.access_token || '')
   }
 
   return { userInfo, setUserInfo, accessToken }

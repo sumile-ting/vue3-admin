@@ -66,11 +66,12 @@ import {
 } from '@element-plus/icons-vue'
 import config from '@/config/index.js'
 import { useColorMode, useCycleList } from '@vueuse/core'
+import { removeToken } from '@/util/auth'
 
 const router = useRouter()
 const {userInfo, setUserInfo} = useUserStore()
 const { proxy } = getCurrentInstance();
-const { menus, activeMenuId, setActiveMenuId, setMenus, setMenuCollapse } = useMenusStore()
+const { menus, setMenus, setMenuCollapse } = useMenusStore()
 const {isMenuCollapse} = toRefs(useMenusStore())
 const { setTags } = useTagsStore()
 
@@ -88,17 +89,13 @@ const { next } = useCycleList(['dark', 'red', 'auto'], { initialValue: mode })
 /**
  * 切换tags，更新顶部激活状态
  */
-const activeId = computed(() => {
-  const { activeMenuId } = useMenusStore()
-  return activeMenuId
-})
+const activeId = inject('activeTopMenuId')
 /**
  * 顶部菜单点击事件
  * @param {*} key 
  * @param {*} keyPath 
  */
 const handleSelect = (key, keyPath) => {
-  setActiveMenuId(key)
   const subMenus = menus.find(item => item.id === key)
   if(!subMenus || !subMenus.children.length) {
     router.push('/404')
@@ -127,10 +124,11 @@ function logout () {
     type: 'warning',
     confirmButtonText: '确定',
     cancelButtonText: '取消',
+    autofocus: false
   }).then(() => {
     proxy.$get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/logout`).then((res) => {
       setUserInfo({})
-      setActiveMenuId('')
+      removeToken()
       setMenus([])
       setTags([])
       router.push('/login')

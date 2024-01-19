@@ -20,7 +20,20 @@ import {useMenusStore} from '@/stores/menus'
 import Top from './top/index.vue'
 import Aside from './aside/index.vue'
 import Tags from './top/tags.vue'
-const {isMenuCollapse} = toRefs(useMenusStore())
+import { findRootNodeByPath } from '@/util/util'
+import { useRoute } from 'vue-router'
+
+const {isMenuCollapse, menus} = toRefs(useMenusStore())
+const activeTopMenuId = ref()
+const route = useRoute()
+
+watchEffect(() => {
+  const node = findRootNodeByPath(menus.value, route.path)
+  activeTopMenuId.value =  node?.id || ''
+})
+
+provide('activeTopMenuId', activeTopMenuId)
+
 </script>
 
 <style scoped>

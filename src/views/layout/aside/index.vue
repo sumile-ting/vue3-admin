@@ -25,34 +25,29 @@
 </template>
 
 <script setup>
-import { computed, reactive, toRefs, ref, watch, nextTick } from 'vue'
+import { toRefs, ref, watch, nextTick } from 'vue'
 import { useMenusStore } from '@/stores/menus.js'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import AsideMenuItem from './AsideMenuItem.vue';
 import { useTagsStore } from "@/stores/tags.js";
+
+const route = useRoute()
 
 const childMenu = ref({
   menu: []
 })
 
-const { isMenuCollapse, menus,  activeMenuId} = toRefs(useMenusStore())
+const { isMenuCollapse, menus} = toRefs(useMenusStore())
 
 const asideMenus = ref([])
-function loadAsideMenus() {
-  let menu = menus.value.find(menu => activeMenuId.value === menu.id)
+const activeTopMenuId = inject('activeTopMenuId')
+
+watchEffect(() => {
+  let menu = menus.value.find(menu => activeTopMenuId.value === menu.id)
   asideMenus.value = menu && menu.children && menu.children.length ? menu.children : [];
-}
-
-// 加载侧边菜单
-loadAsideMenus()
-
-// 顶部菜单切换，重新加载左侧菜单
-watch(() => (activeMenuId.value), () => {
-  loadAsideMenus()
 })
 
-const route = useRoute()
-const router = useRouter()
+
 const activeMenu = ref(route.path)
 const activeSubMenu = ref(route.path)
 

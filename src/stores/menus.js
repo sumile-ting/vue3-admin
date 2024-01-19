@@ -5,7 +5,6 @@ import { useStorage } from '@vueuse/core'
 
 export const useMenusStore = defineStore('menus', () => {
   const menus = ref(useStorage('system-menus', []))
-  const activeMenuId = ref(useStorage('system-active_menu_id', ''))
   const isMenuCollapse = ref(false)
 
   /**
@@ -16,14 +15,11 @@ export const useMenusStore = defineStore('menus', () => {
     return new Promise(
       (resolve) => {
         $get(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-system/menu/routesAdmin`, {
-          topMenuId: '1610517983698395138' //设备
-          //党建 1630735360625516546
+          topMenuId: '1610517983698395138' // 设备
+          // 党建 1630735360625516546
         }).then(({ data }) => {
           const result = data.data
           menus.value = result
-          if (result.length) {
-            setActiveMenuId(result[0].id)
-          }
           resolve(result)
         })
       },
@@ -38,14 +34,6 @@ export const useMenusStore = defineStore('menus', () => {
   }
 
   /**
-   * 设置顶部激活的菜单id
-   * @param {*} menuId
-   */
-  function setActiveMenuId (menuId) {
-    activeMenuId.value = menuId
-  }
-
-  /**
    * 设置左侧菜单栏收缩状态
    */
   function setMenuCollapse (collapse) {
@@ -55,8 +43,6 @@ export const useMenusStore = defineStore('menus', () => {
   return {
     menus,
     setMenus,
-    activeMenuId,
-    setActiveMenuId,
     isMenuCollapse,
     setMenuCollapse,
     getMenus

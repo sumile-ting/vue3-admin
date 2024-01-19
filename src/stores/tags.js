@@ -1,7 +1,6 @@
 import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { useMenusStore } from './menus'
 
 export const useTagsStore = defineStore('tags', () => {
   const tags = reactive({
@@ -30,8 +29,6 @@ export const useTagsStore = defineStore('tags', () => {
     if (tagInList) {
       tagInList.meta.order = order
     } else {
-      const { activeMenuId } = useMenusStore()
-      tag.meta.menuId = activeMenuId
       tag.meta.order = order
       tags.arr.push(tag)
     }
