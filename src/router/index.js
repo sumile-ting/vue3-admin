@@ -9,6 +9,10 @@ const baseUrl = import.meta.env.BASE_URL
 
 const router = createRouter({
   history: createWebHistory(baseUrl),
+  scrollBehavior (to, from, savedPosition) {
+    // 始终滚动到顶部
+    return { top: 0, left: 0 }
+  },
   routes: [
     ...staticRoutes,
     {
