@@ -4,7 +4,7 @@ import Login from '../views/login/Login.vue'
 import Layout from '../views/layout/index.vue'
 import staticRoutes from './static'
 
-const modules = import.meta.glob('../**/**/*.vue')
+const modules = import.meta.glob(['../views/**/*.vue',  '!../views/layout/**/*.vue',  '!../views/login/**/*.vue'])
 const baseUrl = import.meta.env.BASE_URL
 
 const router = createRouter({
@@ -68,62 +68,99 @@ const router = createRouter({
   ]
 })
 
+// Hard-reload the page when chunk load errors match the navigation error
+router.onError((error, to) => {
+  const errors = ['Failed to load module script', 'Failed to fetch dynamically imported module', 'Unable to preload CSS'];
+
+  if (errors.some((e) => error.message.includes(e))) {
+    window.location = to.fullPath;
+  }
+});
+
+// 这个的作用是 为了检查出网页链接
+function isURL(s) {
+  if (s.includes('html')) return true
+  return /^http[s]?:\/\/.*/.test(s)
+}
+
 /**
  * 递归的构造动态路由
  * @param {*} menus
- * @param {*} parent
+ * @param {*} topLevel
  * @returns
  */
-export function generatorRouterTree (menus, parent) {
+export function generatorRouterTree (menus, topLevel) {
   if (!menus || menus.length === 0) return
   const routers = []
   for (let i = 0; i < menus.length; i++) {
     const item = menus[i]
+    let path = (() => {
+      if (topLevel) {
+        // 将 '/index' 替换为 ''
+        return item.path.replace(/\/index$/, '')
+      } else {
+        return item.path
+      }
+    })()
+    const componentPath  = item.path
+    const isChild = !!(item.children && item.children.length !== 0)
+    const routeComponent = (() => {
+        // 判断是否为首路由
+        if (topLevel) return () => import('../views/layout/index.vue')
+        // // 判断是否为多层路由
+        if (isChild && !topLevel) {
+          return ''
+        }
+        // 判断是否为最终的页面视图
+        return modules[`../views${componentPath}.vue`]
+    })()
+
     const routerMap = {
       name: item.code || '',
-      path: item.path || `${parent && parent.path || ''}/${item.path}`,
+      path: path,
       meta: {
         title: item.name || ''
       },
-      query: item.query
+      component: routeComponent,
+      redirect: (() => {
+        // 第一次进来但是没有子路由的 需要添加redirect
+        if (!isChild && topLevel && !isURL(path)) return `${path}/index`
+        else return ''
+      })(),
+      // 整理子路由的route 配置
+      // 处理是否为一级路由
+      children: !isChild
+        ? (() => {
+            if (topLevel) {
+              // 这里的isURL判断，因为这个网站有使用 iframe。所以需要判断是否为网页链接
+              if (!isURL(path)) item.path = `${path}/index`
+              return [
+                {
+                  component: modules[`../views${componentPath}.vue`],
+                  name: item.name,
+                  meta: {},
+                  path: 'index'
+                }
+              ]
+            }
+            return []
+          })()
+        : (() => {
+            /**
+             * 这里是重点，当有子路由的时候 会再去执行 generatorRouterTree 方法，然后又会有一个新的 aMenu for循环。
+             * 最后返回的是一个数组 aRouter 这个数组就会作为 childen的值被 return
+             */
+            return generatorRouterTree(item.children, false)
+          })()
     }
-    const isChild = !!(item.children && item.children.length !== 0)
-    if (parent) {
-      const result = modules['../views/layout/index.vue']
-      if (result) result().then(mod => mod.default.name = item.path)
-      routerMap.component = result
-    } else if (isChild && !parent) {
-      const result = modules['../views/layout/RouterView.vue']
-      if (result) result().then(mod => mod.default.name = item.path)
-      routerMap.component = result
-    } else {
-      const result = modules[`../views${item.path}.vue`]
-      if (result) result().then(mod => mod.default.name = item.path)
-      else { console.log(item.path + '不存在') }
-      routerMap.component = result
-    }
-    if (!isChild && parent) routerMap.redirect = `${item.path}`
 
-    if (!isChild) {
-      if (parent) {
-        const result = modules[`../views${item.path}.vue`]
-        if (result) result().then(mod => mod.default.name = item.path)
-        else { console.log(item.path + '不存在') }
-        routerMap.children = {
-          component: result
-        }
-      } else {
-        routerMap.children = []
-      }
-    } else {
-      // 递归子菜单
-      routerMap.children = generatorRouterTree(item.children, false)
-    }
     routers.push(routerMap)
   }
 
-  if (parent) {
-    routers.forEach((ele) => router.addRoute(ele))
+  if (topLevel) {
+    routers.forEach((ele) => {
+      router.addRoute(ele)
+    })
   } else {
     return routers
   }

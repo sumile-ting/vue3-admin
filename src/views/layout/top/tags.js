@@ -1,9 +1,7 @@
 import { useTagsStore } from '@/stores/tags.js'
 import { useRoute, useRouter } from 'vue-router'
-import { useMenusStore } from '@/stores/menus'
 
 export default () => {
-  const { setActiveMenuId } = useMenusStore()
   const { tags, setTags } = useTagsStore()
   const route = useRoute()
   const router = useRouter()
@@ -35,12 +33,6 @@ export default () => {
    */
   const handleClick = function (tab) {
     const path = tab.props.name
-    const tag = tags.arr.find((item) => item.value === path)
-    const { activeMenuId } = useMenusStore()
-    // tag的menuId和顶部菜单激活状态的menuId不一致，更新顶部菜单激活状态
-    if (tag.meta.menuId && tag.meta.menuId !== activeMenuId) {
-      setActiveMenuId(tag.meta.menuId)
-    }
     router.push(path)
   }
   // 关闭其它标签
