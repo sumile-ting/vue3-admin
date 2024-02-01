@@ -6,24 +6,41 @@
 [🎉 图标集](https://icones.js.org/collection/ep)
 [🎉 CSS类库](https://uno.antfu.me/)
 
-##开发
+# 开发
+
+- 项目初始化
+
 ```
-# 项目初始化
 npm install
+```
+- 安装前切换到淘宝register
 
-#项目启动
+```
+npm install nrm -g
+nrm use taobao
+```
+- 项目启动
+
+```
 npm run dev
+```
+- 使用Mock启动项目
 
-#使用Mock启动项目
+```
 npm run dev:mock
+```
+- 打包
 
-#打包
+```
 npm run build
+```
+- Lint with [ESLint](https://eslint.org/)
 
-#Lint with [ESLint](https://eslint.org/)
+```
 npm run lint
 ```
-##组件
+# 组件
+
 - basic-container 
   页面布局组件，上搜索，下表格布局
   <img src='https://sumile-ting.github.io/vue3-admin/img/basic-container1.png' width="700">
