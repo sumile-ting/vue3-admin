@@ -21,7 +21,7 @@ import { reactive, getCurrentInstance } from "vue";
 import { ElMessage } from 'element-plus'
 import Md5 from 'js-md5'
 import { useUserStore } from '@/stores/user'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 const router = useRouter()
 const userInfo = reactive({
   username: "admin",
@@ -31,7 +31,7 @@ const userInfo = reactive({
   scope: 'all',
 });
 const { proxy } = getCurrentInstance();
-const {setUserInfo} = useUserStore()
+const { setUserInfo } = useUserStore()
 const onSubmit = () => {
   const params = {
     ...userInfo,
@@ -39,13 +39,13 @@ const onSubmit = () => {
   }
 
   proxy.$post(`/api/${import.meta.env.VITE_REQUEST_PREFIX}-auth/oauth/token`, params, null, {
-		headers: {
+    headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Tenant-Id': '000000'
-    }			
-	}).then((res) => {
+    }
+  }).then((res) => {
     setUserInfo(res.data)
-    router.push({path: '/'})
+    router.push({ path: '/' })
   }, res => {
     ElMessage({
       message: res.response.data.error_description || '未知错误',
@@ -62,6 +62,7 @@ const onSubmit = () => {
   display: flex;
   align-items: center;
 }
+
 .login-box {
   width: 430px;
   margin: 0 auto;

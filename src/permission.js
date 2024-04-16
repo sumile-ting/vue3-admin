@@ -22,8 +22,6 @@ router.beforeEach(async (to, from, next) => {
         const result = await getMenus()
         if (result.length) {
           generatorRouterTree(result, true)
-        } else {
-          next('/404')
         }
       }
 
@@ -56,6 +54,10 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
+    if(to.path === '/404') {
+      next('/login')
+      return
+    }
     // 判断是否需要认证，没有登录访问去登录页
     if (meta.isAuth === false) {
       next()
