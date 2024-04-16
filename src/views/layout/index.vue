@@ -30,7 +30,14 @@ const route = useRoute()
 watchEffect(() => {
   // 根据当前页面地址查找顶部菜单的id
   const node = findRootNodeByPath(menus.value, route.path)
-  activeTopMenuId.value =  node?.id || ''
+  if(!node) { // 动态路由里没匹配到, 则匹配顶部菜单路径
+    const routePrefix = '/' + route.path.split('/')[1]
+    const matched = menus.value.find(item => item.path === routePrefix)
+    activeTopMenuId.value =  matched?.id || ''
+  } else {
+    activeTopMenuId.value =  node?.id || ''
+  }
+  
 })
 
 provide('activeTopMenuId', activeTopMenuId)
