@@ -11,7 +11,7 @@
       <el-card class="sumile-basic-container--aside w-260px mr-15px mb-15px" v-if="$slots.aside" :body-style="{padding: '10px', height: '100%'}">
         <slot name="aside"></slot>
       </el-card>
-      <div class="sumile-basic-container--content flex-1 flex flex-col">
+      <div class="sumile-basic-container--content flex-1 flex flex-col overflow-hidden">
         <!-- 表格上方搜索栏插槽 -->
         <slot name="search"></slot>
 
